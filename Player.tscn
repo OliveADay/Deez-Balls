@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=3 uid="uid://c8x3vhm1rs80n"]
+
+[ext_resource type="Texture2D" uid="uid://bgjdghsvxst6g" path="res://player-Sheet.png" id="1_7rtip"]
+[ext_resource type="Script" path="res://Movment.gd" id="1_ksifc"]
+[ext_resource type="Script" path="res://PlayAnimOnAction.gd" id="3_bt0pg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i3tp1"]
+size = Vector2(8, 15)
+
+[sub_resource type="Animation" id="Animation_c2db1"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_5iyr4"]
+resource_name = "walk"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 16, 17, 18, 19]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wltb3"]
+_data = {
+"idle": SubResource("Animation_c2db1"),
+"walk": SubResource("Animation_5iyr4")
+}
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_ksifc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_7rtip")
+hframes = 5
+vframes = 4
+frame = 19
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_i3tp1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wltb3")
+}
+script = ExtResource("3_bt0pg")
