@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://c8x3vhm1rs80n"]
+[gd_scene load_steps=15 format=3 uid="uid://c8x3vhm1rs80n"]
 
 [ext_resource type="Texture2D" uid="uid://bgjdghsvxst6g" path="res://player-Sheet.png" id="1_7rtip"]
 [ext_resource type="Script" path="res://Movment.gd" id="1_ksifc"]
 [ext_resource type="Script" path="res://PlayAnimOnAction.gd" id="3_bt0pg"]
+[ext_resource type="Script" path="res://ball.gd" id="4_igrqh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i3tp1"]
 size = Vector2(8, 15)
@@ -47,22 +48,125 @@ _data = {
 "walk": SubResource("Animation_5iyr4")
 }
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="Animation" id="Animation_xg7i1"]
+resource_name = "Idle_1"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bat:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
+[sub_resource type="Animation" id="Animation_otrct"]
+resource_name = "Swing_down"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bat:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_6cxib"]
+resource_name = "Swing_up"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bat:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [11, 9, 12, 7, 13, 6]
+}
+
+[sub_resource type="Animation" id="Animation_evmis"]
+resource_name = "idle_2"
+length = 0.1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nxmli"]
+_data = {
+"Idle_1": SubResource("Animation_xg7i1"),
+"Swing_down": SubResource("Animation_otrct"),
+"Swing_up": SubResource("Animation_6cxib"),
+"idle_2": SubResource("Animation_evmis")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jue33"]
+radius = 3.0
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("currentBall")]
 script = ExtResource("1_ksifc")
+currentBall = NodePath("ball")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("1_7rtip")
 hframes = 5
 vframes = 4
-frame = 19
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_i3tp1")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer_plr" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_wltb3")
 }
 script = ExtResource("3_bt0pg")
+
+[node name="Bat" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_7rtip")
+hframes = 5
+vframes = 4
+frame = 6
+
+[node name="AnimationPlayer_Bat" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nxmli")
+}
+
+[node name="ball" type="RigidBody2D" parent="." groups=["ball"]]
+collision_layer = 2
+collision_mask = 2
+gravity_scale = 0.0
+freeze_mode = 1
+script = ExtResource("4_igrqh")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ball"]
+shape = SubResource("CircleShape2D_jue33")
+
+[node name="Sprite2D" type="Sprite2D" parent="ball"]
+z_index = -1
+texture_filter = 1
+texture = ExtResource("1_7rtip")
+hframes = 5
+vframes = 4
+frame = 14
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_i3tp1")
