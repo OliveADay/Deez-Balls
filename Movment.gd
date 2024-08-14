@@ -6,6 +6,8 @@ const JUMP_VELOCITY = -400.0
 var batDown = false
 @export var currentBall = RigidBody2D
 var balls = [RigidBody2D]
+var maxBallCheckCooldown = 10
+var currentBallCheckCooldown = 0;
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -18,17 +20,24 @@ func _ready():
 func _process(delta):
 	$Bat.look_at(get_viewport().get_mouse_position())
 	balls = find_children("ball", "RigidBody2D")
-	if $Area2D.has_overlapping_bodies():
-		for body in $Area2D.get_overlapping_bodies():
-			if body.is_in_group("ball"):
-				for ball in balls:
-					if body == ball:
-						currentBall = ball
-						currentBall.linear_damp = 0
 	
 
 func _physics_process(delta):
 	# Add the gravity.
+	if $Area2D.has_overlapping_bodies():
+		for body in $Area2D.get_overlapping_bodies():
+			if body.is_in_group("ball"):
+				for ball in balls:
+					if body == ball and currentBallCheckCooldown == 0:
+						currentBall = ball
+						currentBall.linear_damp = 0
+						pass
+	
+	if(currentBall != null):
+		currentBall.linear_velocity = velocity
+		currentBall.linear_damp = 0
+	
+	currentBallCheckCooldown -= 1
 	if Input.is_action_just_pressed("shoot"):
 		HandleBat()
 	if !batDown:
@@ -67,7 +76,7 @@ func HandleBat():
 	if currentBall != null:
 		currentBall.apply_central_impulse((get_viewport().get_mouse_position() - position).normalized() *100)
 		currentBall.linear_damp = 0.5
-		currentBall.remove_from_group("ball")
+		currentBallCheckCooldown = maxBallCheckCooldown
 		
 		#currentBall.linear_velocity = (get_viewport().get_mouse_position() - position).normalized() * 10
 	currentBall = null
