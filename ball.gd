@@ -10,3 +10,6 @@ func _ready():
 func _physics_process(delta):
 	if linear_velocity == Vector2(0,0):
 		add_to_group("ball")
+	else:
+		remove_from_group("ball")
+	print(is_in_group("ball"))
