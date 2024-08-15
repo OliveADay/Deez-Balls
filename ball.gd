@@ -7,4 +7,5 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	pass
+	if linear_velocity.x < 0.1 and linear_velocity.x != 0:
+		linear_damp = 0

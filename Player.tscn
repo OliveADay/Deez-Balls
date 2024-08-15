@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c8x3vhm1rs80n"]
+[gd_scene load_steps=16 format=3 uid="uid://c8x3vhm1rs80n"]
 
 [ext_resource type="Texture2D" uid="uid://bgjdghsvxst6g" path="res://player-Sheet.png" id="1_7rtip"]
 [ext_resource type="Script" path="res://Movment.gd" id="1_ksifc"]
@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://ball.gd" id="4_igrqh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i3tp1"]
-size = Vector2(8, 15)
+size = Vector2(8, 14)
 
 [sub_resource type="Animation" id="Animation_c2db1"]
 resource_name = "idle"
@@ -109,40 +109,54 @@ _data = {
 "idle_2": SubResource("Animation_evmis")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2go85"]
+size = Vector2(4, 10)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_jue33"]
 radius = 3.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("currentBall")]
-script = ExtResource("1_ksifc")
-currentBall = NodePath("ball")
+[node name="Player" type="Node2D"]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="PlayerBody" type="CharacterBody2D" parent="." node_paths=PackedStringArray("currentBall")]
+script = ExtResource("1_ksifc")
+currentBall = NodePath("../ball")
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerBody"]
 texture_filter = 1
 texture = ExtResource("1_7rtip")
 hframes = 5
 vframes = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2.5)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBody"]
+position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_i3tp1")
 
-[node name="AnimationPlayer_plr" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer_plr" type="AnimationPlayer" parent="PlayerBody"]
 libraries = {
 "": SubResource("AnimationLibrary_wltb3")
 }
 script = ExtResource("3_bt0pg")
 
-[node name="Bat" type="Sprite2D" parent="."]
+[node name="Bat" type="Sprite2D" parent="PlayerBody"]
 texture_filter = 1
 texture = ExtResource("1_7rtip")
 hframes = 5
 vframes = 4
 frame = 6
 
-[node name="AnimationPlayer_Bat" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer_Bat" type="AnimationPlayer" parent="PlayerBody"]
 libraries = {
 "": SubResource("AnimationLibrary_nxmli")
 }
+
+[node name="Area2D" type="Area2D" parent="PlayerBody"]
+collision_layer = 0
+collision_mask = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBody/Area2D"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_2go85")
 
 [node name="ball" type="RigidBody2D" parent="." groups=["ball"]]
 collision_layer = 2
@@ -162,11 +176,3 @@ texture = ExtResource("1_7rtip")
 hframes = 5
 vframes = 4
 frame = 14
-
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, 2.5)
-shape = SubResource("RectangleShape2D_i3tp1")

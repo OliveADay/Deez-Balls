@@ -28,16 +28,17 @@ func _physics_process(delta):
 		for body in $Area2D.get_overlapping_bodies():
 			if body.is_in_group("ball"):
 				for ball in balls:
-					if body == ball and currentBallCheckCooldown == 0:
+					if body == ball and currentBallCheckCooldown == 0 and currentBall == null:
 						currentBall = ball
-						currentBall.linear_damp = 0
+						currentBall.linear_damp = 10
 						pass
 	
 	if(currentBall != null):
 		currentBall.linear_velocity = velocity
 		currentBall.linear_damp = 0
 	
-	currentBallCheckCooldown -= 1
+	if currentBallCheckCooldown != 0:
+		currentBallCheckCooldown -= 1
 	if Input.is_action_just_pressed("shoot"):
 		HandleBat()
 	if !batDown:
