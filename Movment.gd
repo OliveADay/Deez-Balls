@@ -8,6 +8,7 @@ var batDown = false
 var balls = [RigidBody2D]
 var maxBallCheckCooldown = 10
 var currentBallCheckCooldown = 0;
+@onready var MainN = get_parent()
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -19,26 +20,25 @@ func _ready():
 
 func _process(delta):
 	$Bat.look_at(get_viewport().get_mouse_position())
-	balls = find_children("ball", "RigidBody2D")
+	balls = MainN.find_children("ball", "RigidBody2D")
 	
 
 func _physics_process(delta):
 	# Add the gravity.
 	if $Area2D.has_overlapping_bodies():
 		for body in $Area2D.get_overlapping_bodies():
-			if body.is_in_group("ball"):
-				for ball in balls:
-					if body == ball and currentBallCheckCooldown == 0 and currentBall == null:
-						currentBall = ball
-						currentBall.linear_damp = 10
-						pass
+			for ball in balls:
+				if body == ball and currentBallCheckCooldown == 0 and currentBall == null:
+					currentBall = ball
+					currentBall.linear_damp = 10
 	
-	if(currentBall != null):
-		currentBall.linear_velocity = velocity
+	if currentBall != null:
 		currentBall.linear_damp = 0
+		currentBall.linear_velocity = velocity
 	
 	if currentBallCheckCooldown != 0:
 		currentBallCheckCooldown -= 1
+		
 	if Input.is_action_just_pressed("shoot"):
 		HandleBat()
 	if !batDown:
@@ -64,8 +64,6 @@ func _physics_process(delta):
 		$Sprite2D.flip_h = true
 
 	move_and_slide()
-	if currentBall != null:
-		currentBall.linear_velocity = velocity
 		
 	
 	
