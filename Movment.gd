@@ -9,14 +9,11 @@ var balls = [RigidBody2D]
 var maxBallCheckCooldown = 10
 var currentBallCheckCooldown = 0;
 @onready var MainN = get_parent()
+signal caught()
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-
-func _ready():
-	currentBall = $ball
-	get_children()
 
 func _process(delta):
 	$Bat.look_at(get_viewport().get_mouse_position())
@@ -31,6 +28,7 @@ func _physics_process(delta):
 				if body == ball and currentBallCheckCooldown == 0 and currentBall == null:
 					currentBall = ball
 					currentBall.linear_damp = 10
+					caught.emit()
 	
 	if currentBall != null:
 		currentBall.linear_damp = 0

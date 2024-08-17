@@ -162,7 +162,6 @@ shape = SubResource("RectangleShape2D_2go85")
 collision_layer = 2
 collision_mask = 2
 gravity_scale = 0.0
-freeze_mode = 1
 script = ExtResource("4_igrqh")
 metadata/_edit_group_ = true
 
