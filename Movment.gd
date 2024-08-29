@@ -8,7 +8,6 @@ var batDown = false
 var balls = [RigidBody2D]
 var maxBallCheckCooldown = 10
 var currentBallCheckCooldown = 0;
-@onready var MainN = get_parent()
 signal caught()
 
 
@@ -17,7 +16,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _process(delta):
 	$Bat.look_at(get_viewport().get_mouse_position())
-	balls = MainN.find_children("ball", "RigidBody2D")
+	balls = get_tree().get_nodes_in_group("ball")
 	
 
 func _physics_process(delta):
@@ -33,6 +32,7 @@ func _physics_process(delta):
 	if currentBall != null:
 		currentBall.linear_damp = 0
 		currentBall.linear_velocity = velocity
+		currentBall.get_child(1).visible = false
 	
 	if currentBallCheckCooldown != 0:
 		currentBallCheckCooldown -= 1
@@ -74,6 +74,7 @@ func HandleBat():
 		currentBall.apply_central_impulse((get_viewport().get_mouse_position() - position).normalized() *100)
 		currentBall.linear_damp = 0.5
 		currentBallCheckCooldown = maxBallCheckCooldown
+		currentBall.get_child(1).visible = true
 		
 		#currentBall.linear_velocity = (get_viewport().get_mouse_position() - position).normalized() * 10
 	currentBall = null
