@@ -15,7 +15,7 @@ signal caught()
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _process(delta):
-	$Bat.look_at(get_viewport().get_mouse_position())
+	$Bat.look_at(get_global_mouse_position())
 	balls = get_tree().get_nodes_in_group("ball")
 	
 
@@ -56,7 +56,7 @@ func _physics_process(delta):
 	else:
 		velocity.y = move_toward(velocity.y, 0, SPEED)
 		
-	if position.x - get_viewport().get_mouse_position().x < 0:
+	if position.x - get_global_mouse_position().x < 0:
 		$Sprite2D.flip_h = false
 	else:
 		$Sprite2D.flip_h = true
@@ -71,7 +71,7 @@ func HandleBat():
 	else:
 		$AnimationPlayer_Bat.play("Swing_up")	
 	if currentBall != null:
-		currentBall.apply_central_impulse((get_viewport().get_mouse_position() - position).normalized() *100)
+		currentBall.apply_central_impulse((get_global_mouse_position() - position).normalized() *100)
 		currentBall.linear_damp = 0.5
 		currentBallCheckCooldown = maxBallCheckCooldown
 		currentBall.get_child(1).visible = true

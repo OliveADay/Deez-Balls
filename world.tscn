@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=4 uid="uid://dmotc6ubpyey"]
+[gd_scene load_steps=6 format=4 uid="uid://dmotc6ubpyey"]
 
 [ext_resource type="PackedScene" uid="uid://c8x3vhm1rs80n" path="res://Player.tscn" id="1_a82ay"]
+[ext_resource type="Script" path="res://DungeonGenerator.gd" id="1_y3bbi"]
 [ext_resource type="Texture2D" uid="uid://bida471gitq28" path="res://tilemap.png" id="2_7f3x5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q2gul"]
@@ -13,6 +14,7 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_q2gul")
 
 [node name="World" type="Node2D"]
+script = ExtResource("1_y3bbi")
 
 [node name="Player" parent="." instance=ExtResource("1_a82ay")]
 
@@ -20,7 +22,7 @@ sources/0 = SubResource("TileSetAtlasSource_q2gul")
 tile_set = SubResource("TileSet_pajbu")
 format = 2
 
-[node name="Layer0" type="TileMapLayer" parent="TileMap"]
+[node name="Layer1" type="TileMapLayer" parent="TileMap"]
 use_parent_material = true
 tile_map_data = PackedByteArray("AAALAAAAAAAAAAAAAAAKAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAIAAEAAAAAAAAAAAAHAAEAAAAAAAAAAAAHAAAAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_pajbu")
