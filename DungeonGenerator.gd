@@ -38,6 +38,7 @@ func _ready() -> void:
 					$TileMap/Layer1.set_cell(Vector2i(x-128,y-128), cellId, Vector2i(0,0)) # Replace with function body.
 					inRect = true
 			if !inRect:
+				pass
 				$TileMap/Layer1.set_cell(Vector2i(x-128,y-128), 0, Vector2i(0,0))
 					
 
