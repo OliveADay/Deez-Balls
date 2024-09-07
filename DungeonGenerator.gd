@@ -6,10 +6,16 @@ var GridAttempts
 var rectTests: Array[Rect2i] = []
 var rectTests_inter: Array[Rect2i] = []
 var rectAttempts = 1000
-var rectMinsandMaxes = [-64,64, 5, 10]
+var rectMinsandMaxes = [-64,64, 7, 20]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	var rectpos_1 = Vector2i(-2,-2)
+	var rectsize_1 = [rng.randi_range(rectMinsandMaxes[2],rectMinsandMaxes[3]), rng.randi_range(rectMinsandMaxes[2],rectMinsandMaxes[3])]
+	var rect_1 = Rect2i(rectpos_1.x, rectpos_1.y, rectsize_1[0], rectsize_1[1])
+	rectTests.append(rect_1)
+	
+	
 	for i in rectAttempts:
 		var rectpos = Vector2i(rng.randi_range(rectMinsandMaxes[0],rectMinsandMaxes[1]), rng.randi_range(rectMinsandMaxes[0],rectMinsandMaxes[1]))
 		var rectsize = [rng.randi_range(rectMinsandMaxes[2],rectMinsandMaxes[3]), rng.randi_range(rectMinsandMaxes[2],rectMinsandMaxes[3])]
@@ -20,8 +26,8 @@ func _ready() -> void:
 				colliding_other_rects = true
 		if !colliding_other_rects:
 			rectTests.append(recti)
-			var rectinner = Rect2i(recti.position.x+1, recti.position.y+1, recti.size.x-2, recti.size.y-2)
-			rectTests_inter.append(rectinner)
+			#var rectinner = Rect2i(recti.position.x+1, recti.position.y+1, recti.size.x-2, recti.size.y-2)
+			#rectTests_inter.append(rectinner)
 	
 	for y in 257:
 		for x in 257:
@@ -40,6 +46,14 @@ func _ready() -> void:
 			if !inRect:
 				pass
 				$TileMap/Layer1.set_cell(Vector2i(x-128,y-128), 0, Vector2i(0,0))
+				
+	#for y in 257:
+		#for x in 257:
+			#if $TileMap/Layer1.get_cell_source_id(Vector2i(x-128,y-128)) == 0:
+				#if $TileMap/Layer1.get_cell_source_id(Vector2i(x-127,y-128)) != 0 and $TileMap/Layer1.get_cell_source_id(Vector2i(x-129,y-128)) != 0:
+					#$TileMap/Layer1.set_cell(Vector2i(x-128,y-128), -1, Vector2i(0,0))
+				#if $TileMap/Layer1.get_cell_source_id(Vector2i(x-128,y-127)) != 0 and $TileMap/Layer1.get_cell_source_id(Vector2i(x-128,y-129)) != 0:
+					#$TileMap/Layer1.set_cell(Vector2i(x-128,y-128), -1, Vector2i(0,0))
 					
 
 
