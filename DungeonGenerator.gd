@@ -5,7 +5,7 @@ var rng = RandomNumberGenerator.new()
 var GridAttempts
 var rectTests: Array[Rect2i] = []
 var rectTests_inter: Array[Rect2i] = []
-var rectAttempts = 1000
+var rectAttempts = 10000
 var rectMinsandMaxes = [-64,64, 7, 20]
 
 # Called when the node enters the scene tree for the first time.
@@ -32,7 +32,7 @@ func _ready() -> void:
 			if outerRect.intersects(recti):
 				nextTo_Otherrects = true
 			
-		if !colliding_other_rects:
+		if !colliding_other_rects and nextTo_Otherrects:
 			rectTests.append(recti)
 			#var rectinner = Rect2i(recti.position.x+1, recti.position.y+1, recti.size.x-2, recti.size.y-2)
 			#rectTests_inter.append(rectinner)
