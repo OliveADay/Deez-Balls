@@ -7,6 +7,7 @@ var rectTests: Array[Rect2i] = []
 var rectTests_inter: Array[Rect2i] = []
 @export var rectAttempts = 5000
 var rectMinsandMaxes = [-64,64, 7, 20]
+signal nextLevel()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -34,6 +35,11 @@ func _ready() -> void:
 			
 		if !colliding_other_rects and nextTo_Otherrects:
 			rectTests.append(recti)
+		
+	var randomer = RandomNumberGenerator.new()
+	var index = randomer.randi_range(0,rectTests.size() -1)
+	var rectFin = rectTests[index]
+		
 			#var rectinner = Rect2i(recti.position.x+1, recti.position.y+1, recti.size.x-2, recti.size.y-2)
 			#rectTests_inter.append(rectinner)
 	
@@ -51,8 +57,14 @@ func _ready() -> void:
 		for x in 257:
 			var inRect = false
 			for i in range(rectTests.size()):				
-				if rectTests[i].has_point(Vector2i(x-128,y-128)):	
-					$TileMap/Layer1.set_cell(Vector2i(x-128,y-128), -1, Vector2i(0,0)) # Replace with function body.
+				if rectTests[i].has_point(Vector2i(x-128,y-128)):					
+					if rectTests[i] == rectFin:
+						if Vector2i(x-128,y-128) == rectFin.get_center():
+							$TileMap/Layer1.set_cell(Vector2i(x-128,y-128), 0, Vector2i(0,1))
+						elif abs((x-128)-rectFin.get_center().x) < 2 and abs((y-128)-rectFin.get_center().y) < 2:
+							$TileMap/Layer1.set_cell(Vector2i(x-128,y-128), 0, Vector2i(1,0))						
+					else:
+						$TileMap/Layer1.set_cell(Vector2i(x-128,y-128), -1, Vector2i(0,0))
 					inRect = true
 			if !inRect:
 				pass
@@ -71,3 +83,6 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+	
+func _n_lvl() -> void:
+	nextLevel.emit()
