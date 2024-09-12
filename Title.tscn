@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://c84uk0xm0kkrj"]
+
+[ext_resource type="Script" path="res://GameManager.gd" id="1_46q1a"]
+[ext_resource type="FontFile" uid="uid://rsyif4irqau" path="res://04B_11_.TTF" id="1_8110a"]
+[ext_resource type="Script" path="res://title.gd" id="2_oqgcy"]
+[ext_resource type="Script" path="res://PBut.gd" id="3_sa0lt"]
+
+[node name="Title" type="Node2D"]
+script = ExtResource("1_46q1a")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 360.0
+
+[node name="Title" type="CenterContainer" parent="Control"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 30.0
+offset_right = 960.0
+offset_bottom = 70.0
+use_top_left = true
+
+[node name="Title" type="Label" parent="Control/Title"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_8110a")
+text = "MMM Yummy Gold"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_oqgcy")
+
+[node name="CenterContainer" type="CenterContainer" parent="Control"]
+layout_mode = 0
+offset_left = 317.0
+offset_top = 150.0
+offset_right = 373.0
+offset_bottom = 190.0
+use_top_left = true
+
+[node name="Button" type="Button" parent="Control/CenterContainer"]
+layout_mode = 2
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 0)
+theme_override_fonts/font = ExtResource("1_8110a")
+text = "Play"
+icon_alignment = 1
+script = ExtResource("3_sa0lt")
+
+[connection signal="pressed" from="Control/CenterContainer/Button" to="Control/Title/Title" method="_on_button_pressed"]
+[connection signal="pressed" from="Control/CenterContainer/Button" to="Control/CenterContainer/Button" method="_on_pressed"]
