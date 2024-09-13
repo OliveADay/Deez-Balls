@@ -9,8 +9,6 @@ func _ready() -> void:
 	for i in lvl_paths.size():
 		ResourceLoader.load_threaded_request(lvl_paths[i]) # Replace with function body.
 		lvls.append(ResourceLoader.load_threaded_get(lvl_paths[i]).instantiate())
-		lvls
-	_nLvl()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -18,5 +16,10 @@ func _process(delta: float) -> void:
 	pass
 	
 func _nLvl() -> void:
-	add_child(lvls[lvlCurrent])
+	if lvlCurrent < lvls.size():
+		if(lvlCurrent > 0):
+			lvls[lvlCurrent - 1].queue_free()
+		add_child(lvls[lvlCurrent])
+		lvlCurrent +=1
+	
 	

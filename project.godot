@@ -22,6 +22,11 @@ window/size/viewport_height=720
 window/stretch/mode="viewport"
 window/stretch/scale=2.0
 
+[global_group]
+
+World="s"
+winS="winscreen"
+
 [input]
 
 move_left={

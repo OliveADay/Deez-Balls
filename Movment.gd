@@ -8,8 +8,9 @@ var batDown = false
 var balls = [RigidBody2D]
 var maxBallCheckCooldown = 10
 var currentBallCheckCooldown = 0;
+@onready var win_screen = get_tree().get_first_node_in_group("winS")
 signal caught()
-signal treasure_detect()
+signal treasureFound()
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -22,7 +23,8 @@ func _process(delta):
 
 func _physics_process(delta):
 	if $treasure_detect.has_overlapping_bodies():
-		treasure_detect.emit()
+		win_screen.visible = true
+		treasureFound.emit()
 	# Add the gravity.
 	if $Area2D.has_overlapping_bodies():
 		for body in $Area2D.get_overlapping_bodies():

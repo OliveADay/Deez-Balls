@@ -24,3 +24,7 @@ func _on_button_pressed() -> void:
 		tween.set_trans(Tween.TRANS_EXPO)
 		tween.tween_property(get_parent(), "position", Vector2(317, -20), 1)
 		keypressedOnce = true
+
+
+func _on_timer_timeout() -> void:
+	visible = false # Replace with function body.

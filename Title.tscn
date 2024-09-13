@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://title.gd" id="2_oqgcy"]
 [ext_resource type="Script" path="res://PBut.gd" id="3_sa0lt"]
 
-[node name="Title" type="Node2D"]
+[node name="Title" type="Node2D" groups=["World"]]
 script = ExtResource("1_46q1a")
 
 [node name="Control" type="Control" parent="."]
@@ -51,5 +51,10 @@ text = "Play"
 icon_alignment = 1
 script = ExtResource("3_sa0lt")
 
+[node name="Timer" type="Timer" parent="Control/CenterContainer/Button"]
+one_shot = true
+
 [connection signal="pressed" from="Control/CenterContainer/Button" to="Control/Title/Title" method="_on_button_pressed"]
 [connection signal="pressed" from="Control/CenterContainer/Button" to="Control/CenterContainer/Button" method="_on_pressed"]
+[connection signal="timeout" from="Control/CenterContainer/Button/Timer" to="Control/Title/Title" method="_on_timer_timeout"]
+[connection signal="timeout" from="Control/CenterContainer/Button/Timer" to="Control/CenterContainer/Button" method="_on_timer_timeout"]

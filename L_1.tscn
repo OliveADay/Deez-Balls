@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dmotc6ubpyey"]
+[gd_scene load_steps=8 format=3 uid="uid://dmotc6ubpyey"]
 
 [ext_resource type="Script" path="res://DungeonGenerator.gd" id="1_md3hr"]
 [ext_resource type="PackedScene" uid="uid://c8x3vhm1rs80n" path="res://Player.tscn" id="2_doaeo"]
 [ext_resource type="Texture2D" uid="uid://bida471gitq28" path="res://tilemap.png" id="3_glwbf"]
+[ext_resource type="Script" path="res://winScreen.gd" id="4_gq48h"]
+[ext_resource type="FontFile" uid="uid://rsyif4irqau" path="res://04B_11_.TTF" id="4_s51o0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q2gul"]
 texture = ExtResource("3_glwbf")
@@ -32,3 +34,45 @@ format = 2
 texture_filter = 1
 use_parent_material = true
 tile_set = SubResource("TileSet_pajbu")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." groups=["winS"]]
+follow_viewport_enabled = true
+script = ExtResource("4_gq48h")
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -640.0
+offset_bottom = -360.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer/Control"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 211.0
+offset_top = 153.0
+offset_right = 437.0
+offset_bottom = 188.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_s51o0")
+text = "you win!
+next level incoming"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="CanvasLayer"]
+wait_time = 4.0
+one_shot = true
+
+[connection signal="treasureFound" from="Player/PlayerBody" to="CanvasLayer" method="_on_player_body_treasure_found"]
+
+[editable path="Player"]
