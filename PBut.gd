@@ -19,10 +19,11 @@ func _process(delta: float) -> void:
 
 func _on_pressed() -> void:
 	if !keypressedOnce:
+		$AudioStreamPlayer2D3.play()
 		var tween = create_tween()
 		tween.set_ease(Tween.EASE_IN)
 		tween.set_trans(Tween.TRANS_EXPO)
-		tween.tween_property(get_parent(), "position", Vector2(317, -30), 1)
+		tween.tween_property(get_parent(), "position", Vector2(317, -40), 1)
 		$Timer.start()
 		keypressedOnce = true # Replace with function body.
 

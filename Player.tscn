@@ -1,9 +1,14 @@
-[gd_scene load_steps=18 format=3 uid="uid://c8x3vhm1rs80n"]
+[gd_scene load_steps=23 format=3 uid="uid://c8x3vhm1rs80n"]
 
 [ext_resource type="Texture2D" uid="uid://bgjdghsvxst6g" path="res://player-Sheet.png" id="1_7rtip"]
 [ext_resource type="Script" path="res://Movment.gd" id="1_ksifc"]
 [ext_resource type="Script" path="res://PlayAnimOnAction.gd" id="3_bt0pg"]
 [ext_resource type="Script" path="res://ball.gd" id="4_igrqh"]
+[ext_resource type="Script" path="res://winScreen.gd" id="5_gkddb"]
+[ext_resource type="FontFile" uid="uid://rsyif4irqau" path="res://04B_11_.TTF" id="6_xwhwj"]
+[ext_resource type="AudioStream" uid="uid://cyb7gd6wc2g8n" path="res://step_1.wav" id="7_jbpd4"]
+[ext_resource type="AudioStream" uid="uid://b534lbhy3j5aj" path="res://step_2.wav" id="8_e4tcg"]
+[ext_resource type="AudioStream" uid="uid://dpbdv2i5pmlb5" path="res://step_3.wav" id="9_8komb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i3tp1"]
 size = Vector2(8, 14)
@@ -133,6 +138,7 @@ texture_filter = 1
 texture = ExtResource("1_7rtip")
 hframes = 5
 vframes = 4
+frame = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBody"]
 position = Vector2(0, 2)
@@ -169,6 +175,44 @@ shape = SubResource("RectangleShape2D_2go85")
 [node name="Camera2D" type="Camera2D" parent="PlayerBody"]
 position_smoothing_enabled = true
 
+[node name="CanvasLayer" type="CanvasLayer" parent="PlayerBody/Camera2D" groups=["winS"]]
+visible = false
+script = ExtResource("5_gkddb")
+
+[node name="Control" type="Control" parent="PlayerBody/Camera2D/CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -640.0
+offset_bottom = -360.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="PlayerBody/Camera2D/CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="PlayerBody/Camera2D/CanvasLayer/Control"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 211.0
+offset_top = 153.0
+offset_right = 437.0
+offset_bottom = 188.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_xwhwj")
+text = "you win!
+next level incoming"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="PlayerBody/Camera2D/CanvasLayer"]
+wait_time = 2.0
+one_shot = true
+
 [node name="treasure_detect" type="Area2D" parent="PlayerBody"]
 collision_layer = 0
 collision_mask = 4
@@ -176,6 +220,18 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBody/treasure_detect"]
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_bb8dk")
+
+[node name="step_1" type="AudioStreamPlayer2D" parent="PlayerBody"]
+stream = ExtResource("7_jbpd4")
+volume_db = 1.0
+
+[node name="step_2" type="AudioStreamPlayer2D" parent="PlayerBody"]
+stream = ExtResource("8_e4tcg")
+volume_db = 1.0
+
+[node name="step_3" type="AudioStreamPlayer2D" parent="PlayerBody"]
+stream = ExtResource("9_8komb")
+volume_db = 1.0
 
 [node name="ball" type="RigidBody2D" parent="." groups=["ball"]]
 collision_layer = 2
@@ -195,3 +251,6 @@ texture = ExtResource("1_7rtip")
 hframes = 5
 vframes = 4
 frame = 14
+
+[connection signal="treasureFound" from="PlayerBody" to="PlayerBody/Camera2D/CanvasLayer" method="_on_player_body_treasure_found"]
+[connection signal="timeout" from="PlayerBody/Camera2D/CanvasLayer/Timer" to="PlayerBody/Camera2D/CanvasLayer" method="_on_timer_timeout"]

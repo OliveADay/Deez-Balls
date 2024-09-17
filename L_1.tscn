@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://DungeonGenerator.gd" id="1_md3hr"]
 [ext_resource type="PackedScene" uid="uid://c8x3vhm1rs80n" path="res://Player.tscn" id="2_doaeo"]
 [ext_resource type="Texture2D" uid="uid://bida471gitq28" path="res://tilemap.png" id="3_glwbf"]
-[ext_resource type="Script" path="res://winScreen.gd" id="4_gq48h"]
+[ext_resource type="Script" path="res://label.gd" id="4_n1njt"]
 [ext_resource type="FontFile" uid="uid://rsyif4irqau" path="res://04B_11_.TTF" id="4_s51o0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q2gul"]
@@ -26,6 +26,27 @@ rectAttempts = 1000
 
 [node name="Player" parent="." instance=ExtResource("2_doaeo")]
 
+[node name="CanvasLayer2" type="CanvasLayer" parent="Player/PlayerBody/Camera2D" index="1"]
+
+[node name="Label" type="Label" parent="Player/PlayerBody/Camera2D/CanvasLayer2"]
+texture_filter = 1
+offset_left = 158.0
+offset_top = 73.0
+offset_right = 498.0
+offset_bottom = 108.0
+theme_override_fonts/font = ExtResource("4_s51o0")
+text = "There is a chest somewhere
+you probably wanna find it"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_n1njt")
+metadata/_edit_use_anchors_ = true
+
+[node name="Timer" type="Timer" parent="Player/PlayerBody/Camera2D/CanvasLayer2"]
+wait_time = 4.0
+one_shot = true
+autostart = true
+
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_pajbu")
 format = 2
@@ -35,44 +56,6 @@ texture_filter = 1
 use_parent_material = true
 tile_set = SubResource("TileSet_pajbu")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." groups=["winS"]]
-follow_viewport_enabled = true
-script = ExtResource("4_gq48h")
-
-[node name="Control" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -640.0
-offset_bottom = -360.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
-layout_mode = 0
-offset_right = 640.0
-offset_bottom = 360.0
-color = Color(0, 0, 0, 1)
-
-[node name="Label" type="Label" parent="CanvasLayer/Control"]
-texture_filter = 1
-layout_mode = 0
-offset_left = 211.0
-offset_top = 153.0
-offset_right = 437.0
-offset_bottom = 188.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("4_s51o0")
-text = "you win!
-next level incoming"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Timer" type="Timer" parent="CanvasLayer"]
-wait_time = 4.0
-one_shot = true
-
-[connection signal="treasureFound" from="Player/PlayerBody" to="CanvasLayer" method="_on_player_body_treasure_found"]
+[connection signal="timeout" from="Player/PlayerBody/Camera2D/CanvasLayer2/Timer" to="Player/PlayerBody/Camera2D/CanvasLayer2/Label" method="_on_timer_timeout"]
 
 [editable path="Player"]

@@ -11,7 +11,7 @@ var currentBallCheckCooldown = 0;
 @onready var win_screen = get_tree().get_first_node_in_group("winS")
 signal caught()
 signal treasureFound()
-
+var step_amount = 0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -19,6 +19,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 func _process(delta):
 	$Bat.look_at(get_global_mouse_position())
 	balls = get_tree().get_nodes_in_group("ball")
+	win_screen = get_tree().get_first_node_in_group("winS")
 	
 
 func _physics_process(delta):
@@ -65,6 +66,28 @@ func _physics_process(delta):
 		$Sprite2D.flip_h = false
 	else:
 		$Sprite2D.flip_h = true
+
+	if Xaxis != 0 or Yaxis != 0:
+		var rng = RandomNumberGenerator.new()
+		step_amount+=1
+		if step_amount == 1:
+			var randomStep = rng.randi_range(0,2)
+			if randomStep == 0:
+				$step_1.play()
+			elif randomStep == 1:
+				$step_2.play()
+			else:
+				$step_3.play()
+		if step_amount%36 == 0:
+			var randomStep = rng.randi_range(0,2)
+			if randomStep == 0:
+				$step_1.play()
+			elif randomStep == 1:
+				$step_2.play()
+			else:
+				$step_3.play()
+	else:
+		step_amount = 0
 
 	move_and_slide()
 		
