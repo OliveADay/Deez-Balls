@@ -83,6 +83,6 @@ volume_db = 1.0
 
 [connection signal="pressed" from="Control/CenterContainer/Button" to="Control/Title/Title" method="_on_button_pressed"]
 [connection signal="pressed" from="Control/CenterContainer/Button" to="Control/CenterContainer/Button" method="_on_pressed"]
+[connection signal="timeout" from="Control/CenterContainer/Button/Timer" to="Control/ColorRect" method="_on_timer_timeout"]
 [connection signal="timeout" from="Control/CenterContainer/Button/Timer" to="Control/Title/Title" method="_on_timer_timeout"]
 [connection signal="timeout" from="Control/CenterContainer/Button/Timer" to="Control/CenterContainer/Button" method="_on_timer_timeout"]
-[connection signal="timeout" from="Control/CenterContainer/Button/Timer" to="Control/ColorRect" method="_on_timer_timeout"]
