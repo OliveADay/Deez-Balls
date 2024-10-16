@@ -85,4 +85,5 @@ func _process(delta: float) -> void:
 	pass
 	
 func _n_lvl() -> void:
-	nextLevel.emit()
+	pass
+	#nextLevel.emit()

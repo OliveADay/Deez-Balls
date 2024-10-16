@@ -1,6 +1,6 @@
 extends Node2D
 
-const lvl_paths = ["L_1.tscn","L_2.tscn","L_3.tscn","L_4.tscn","L_5.tscn","L_6.tscn","L_7.tscn","L_8.tscn","L_9.tscn","L_10.tscn"]
+const lvl_paths = ["L_1.tscn"]
 var lvls = []
 var lvlCurrent = 0
 

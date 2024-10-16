@@ -19,7 +19,8 @@ func _on_player_body_treasure_found() -> void:
 
 
 func _on_timer_timeout() -> void:
-	world._nLvl()
+	pass
+	#world._nLvl()
 	
 func _reload() -> void:
 	var _reload = get_tree().reload_current_scene()

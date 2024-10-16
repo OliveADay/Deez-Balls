@@ -56,6 +56,17 @@ texture_filter = 1
 use_parent_material = true
 tile_set = SubResource("TileSet_pajbu")
 
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -2
+offset_left = -723.0
+offset_top = -536.0
+offset_right = 637.0
+offset_bottom = 402.0
+color = Color(0.221654, 0.144137, 0.0504711, 1)
+
 [connection signal="timeout" from="Player/PlayerBody/Camera2D/CanvasLayer2/Timer" to="Player/PlayerBody/Camera2D/CanvasLayer2/Label" method="_on_timer_timeout"]
 
 [editable path="Player"]

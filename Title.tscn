@@ -37,7 +37,7 @@ use_top_left = true
 [node name="Title" type="Label" parent="Control/Title"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_8110a")
-text = "MMM Yummy Gold"
+text = "AAA, this is pretty scaryw"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("2_oqgcy")
