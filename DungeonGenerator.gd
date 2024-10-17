@@ -60,11 +60,13 @@ func _ready() -> void:
 				if rectTests[i].has_point(Vector2i(x-128,y-128)):					
 					if rectTests[i] == rectFin:
 						if Vector2i(x-128,y-128) == rectFin.get_center():
-							$TileMap/Layer1.set_cell(Vector2i(x-128,y-128), 0, Vector2i(0,1))
+							$TileMap/Layer1.set_cell(Vector2i(x-128,y-128), 0, Vector2i(1,1))
 						elif abs((x-128)-rectFin.get_center().x) < 2 and abs((y-128)-rectFin.get_center().y) < 2:
+							$TileMap/Layer1.set_cell(Vector2i(x-128,y-128), 0, Vector2i(0,1))
+						else:
 							$TileMap/Layer1.set_cell(Vector2i(x-128,y-128), 0, Vector2i(1,0))						
 					else:
-						$TileMap/Layer1.set_cell(Vector2i(x-128,y-128), -1, Vector2i(0,0))
+						$TileMap/Layer1.set_cell(Vector2i(x-128,y-128), 0, Vector2i(1,0))
 					inRect = true
 			if !inRect:
 				pass

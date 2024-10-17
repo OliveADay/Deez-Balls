@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c8x3vhm1rs80n"]
+[gd_scene load_steps=26 format=3 uid="uid://c8x3vhm1rs80n"]
 
 [ext_resource type="Texture2D" uid="uid://bgjdghsvxst6g" path="res://player-Sheet.png" id="1_7rtip"]
 [ext_resource type="Script" path="res://Movment.gd" id="1_ksifc"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://cyb7gd6wc2g8n" path="res://step_1.wav" id="7_jbpd4"]
 [ext_resource type="AudioStream" uid="uid://b534lbhy3j5aj" path="res://step_2.wav" id="8_e4tcg"]
 [ext_resource type="AudioStream" uid="uid://dpbdv2i5pmlb5" path="res://step_3.wav" id="9_8komb"]
+[ext_resource type="Script" path="res://light_movement.gd" id="9_o8uvt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i3tp1"]
 size = Vector2(8, 14)
@@ -245,6 +246,7 @@ volume_db = 1.0
 
 [node name="PointLight2D" type="PointLight2D" parent="PlayerBody"]
 texture = SubResource("GradientTexture2D_vyg0i")
+script = ExtResource("9_o8uvt")
 
 [node name="ball" type="RigidBody2D" parent="." groups=["ball"]]
 collision_layer = 2
