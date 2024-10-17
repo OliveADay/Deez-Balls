@@ -8,7 +8,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if energy< 1.2:
-		energy = lerp(0.8,1.2, 0.1)
+	if texture_scale< 1.2:
+		texture_scale = lerp(0.8,2.0, 0.1)
 	elif energy >= 1.2:
-		energy=lerp(1.2,0.8, 0.1)
+		texture_scale=lerp(2.0,0.8, 0.1)
