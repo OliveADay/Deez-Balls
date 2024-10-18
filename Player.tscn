@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://c8x3vhm1rs80n"]
+[gd_scene load_steps=28 format=3 uid="uid://c8x3vhm1rs80n"]
 
 [ext_resource type="Texture2D" uid="uid://bgjdghsvxst6g" path="res://player-Sheet.png" id="1_7rtip"]
 [ext_resource type="Script" path="res://Movment.gd" id="1_ksifc"]
@@ -137,6 +137,16 @@ bounce = 0.7
 [sub_resource type="CircleShape2D" id="CircleShape2D_jue33"]
 radius = 3.0
 
+[sub_resource type="Gradient" id="Gradient_jq5bl"]
+offsets = PackedFloat32Array(0, 0.746753)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_usgmi"]
+gradient = SubResource("Gradient_jq5bl")
+fill = 1
+fill_from = Vector2(0.509174, 0.490826)
+fill_to = Vector2(1, 1)
+
 [node name="Player" type="Node2D"]
 
 [node name="PlayerBody" type="CharacterBody2D" parent="." node_paths=PackedStringArray("currentBall")]
@@ -260,12 +270,17 @@ metadata/_edit_group_ = true
 shape = SubResource("CircleShape2D_jue33")
 
 [node name="Sprite2D" type="Sprite2D" parent="ball"]
-z_index = -1
+z_index = 1
 texture_filter = 1
 texture = ExtResource("1_7rtip")
 hframes = 5
 vframes = 4
 frame = 14
+
+[node name="PointLight2D" type="PointLight2D" parent="ball"]
+visible = false
+texture = SubResource("GradientTexture2D_usgmi")
+script = ExtResource("9_o8uvt")
 
 [connection signal="treasureFound" from="PlayerBody" to="PlayerBody/Camera2D/CanvasLayer" method="_on_player_body_treasure_found"]
 [connection signal="timeout" from="PlayerBody/Camera2D/CanvasLayer/Timer" to="PlayerBody/Camera2D/CanvasLayer" method="_on_timer_timeout"]

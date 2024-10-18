@@ -1,5 +1,8 @@
 extends PointLight2D
 
+@export var scale_min=0.4
+@export var scale_max=1.2
+
 var prevIncreasing = false
 var increasing=false
 var decreasing = false
@@ -10,14 +13,14 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if texture_scale< 2 and not decreasing:
+	if texture_scale< 1.2 and not decreasing:
 		texture_scale+=delta
 		increasing = true
 		print('increasing')
-	if texture_scale<0.8:
+	if texture_scale<0.4:
 		decreasing=false
 		print('start increasing')
-	if texture_scale >= 2:
+	if texture_scale >= 1.2:
 		increasing = false
 		decreasing = true
 	if decreasing:
