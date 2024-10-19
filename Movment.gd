@@ -39,6 +39,8 @@ func _physics_process(delta):
 		currentBall.linear_damp = 0
 		currentBall.linear_velocity = velocity
 		currentBall.get_child(1).visible = false
+		currentBall.get_child(2).visible = false
+		currentBall.get_child(3).visible = false
 	
 	if currentBallCheckCooldown != 0:
 		currentBallCheckCooldown -= 1
@@ -103,7 +105,6 @@ func HandleBat():
 		currentBall.linear_damp = 0.5
 		currentBallCheckCooldown = maxBallCheckCooldown
 		currentBall.get_child(1).visible = true
-		
 		#currentBall.linear_velocity = (get_viewport().get_mouse_position() - position).normalized() * 10
 	currentBall = null
 	batDown = !batDown

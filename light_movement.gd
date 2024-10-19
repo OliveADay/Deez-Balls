@@ -16,10 +16,8 @@ func _process(delta: float) -> void:
 	if texture_scale< 1.2 and not decreasing:
 		texture_scale+=delta
 		increasing = true
-		print('increasing')
 	if texture_scale<0.4:
 		decreasing=false
-		print('start increasing')
 	if texture_scale >= 1.2:
 		increasing = false
 		decreasing = true

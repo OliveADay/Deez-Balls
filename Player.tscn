@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://c8x3vhm1rs80n"]
+[gd_scene load_steps=30 format=3 uid="uid://c8x3vhm1rs80n"]
 
 [ext_resource type="Texture2D" uid="uid://bgjdghsvxst6g" path="res://player-Sheet.png" id="1_7rtip"]
 [ext_resource type="Script" path="res://Movment.gd" id="1_ksifc"]
@@ -147,6 +147,15 @@ fill = 1
 fill_from = Vector2(0.509174, 0.490826)
 fill_to = Vector2(1, 1)
 
+[sub_resource type="Gradient" id="Gradient_tngn3"]
+offsets = PackedFloat32Array(0, 0.662338)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_sp6p3"]
+gradient = SubResource("Gradient_tngn3")
+fill = 1
+fill_from = Vector2(0.522936, 0.513761)
+
 [node name="Player" type="Node2D"]
 
 [node name="PlayerBody" type="CharacterBody2D" parent="." node_paths=PackedStringArray("currentBall")]
@@ -263,6 +272,8 @@ collision_layer = 2
 collision_mask = 2
 physics_material_override = SubResource("PhysicsMaterial_wseax")
 gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 6
 script = ExtResource("4_igrqh")
 metadata/_edit_group_ = true
 
@@ -278,9 +289,21 @@ vframes = 4
 frame = 14
 
 [node name="PointLight2D" type="PointLight2D" parent="ball"]
-visible = false
+range_item_cull_mask = 3
 texture = SubResource("GradientTexture2D_usgmi")
-script = ExtResource("9_o8uvt")
+texture_scale = 2.0
+
+[node name="PointLight2D2" type="PointLight2D" parent="ball"]
+blend_mode = 1
+texture = SubResource("GradientTexture2D_usgmi")
+
+[node name="PointLight2D3" type="PointLight2D" parent="ball"]
+z_index = 1
+energy = 2.0
+texture = SubResource("GradientTexture2D_sp6p3")
+texture_scale = 0.3
 
 [connection signal="treasureFound" from="PlayerBody" to="PlayerBody/Camera2D/CanvasLayer" method="_on_player_body_treasure_found"]
 [connection signal="timeout" from="PlayerBody/Camera2D/CanvasLayer/Timer" to="PlayerBody/Camera2D/CanvasLayer" method="_on_timer_timeout"]
+[connection signal="body_entered" from="ball" to="ball" method="_on_body_entered"]
+[connection signal="body_exited" from="ball" to="ball" method="_on_body_exited"]
