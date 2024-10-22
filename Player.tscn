@@ -156,7 +156,7 @@ gradient = SubResource("Gradient_tngn3")
 fill = 1
 fill_from = Vector2(0.522936, 0.513761)
 
-[node name="Player" type="Node2D"]
+[node name="Player" type="Node2D" groups=["player"]]
 
 [node name="PlayerBody" type="CharacterBody2D" parent="." node_paths=PackedStringArray("currentBall")]
 script = ExtResource("1_ksifc")

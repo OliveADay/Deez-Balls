@@ -8,6 +8,8 @@ var rectTests_inter: Array[Rect2i] = []
 @export var rectAttempts = 5000
 var rectMinsandMaxes = [-64,64, 7, 20]
 signal nextLevel()
+var spidyChance = 4
+var spidys = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -35,11 +37,18 @@ func _ready() -> void:
 			
 		if !colliding_other_rects and nextTo_Otherrects:
 			rectTests.append(recti)
+			var chance = rng.randi_range(0,spidyChance)
+			if chance == 0:
+				var spidy = ResourceLoader.load("res://Spidy.tscn").instantiate()
+				var xPos = rng.randi_range(recti.position.x,recti.position.x + recti.size.x)
+				var yPos = rng.randi_range(recti.position.y, recti.size.y+recti.position.y)
+				spidy.position = Vector2(xPos,yPos)
+				spidys.append(spidy)
 		
 	var randomer = RandomNumberGenerator.new()
 	var index = randomer.randi_range(0,rectTests.size() -1)
 	var rectFin = rectTests[index]
-		
+	
 			#var rectinner = Rect2i(recti.position.x+1, recti.position.y+1, recti.size.x-2, recti.size.y-2)
 			#rectTests_inter.append(rectinner)
 	
@@ -71,6 +80,8 @@ func _ready() -> void:
 			if !inRect:
 				pass
 				$Layer1.set_cell(Vector2i(x-128,y-128), 0, Vector2i(0,0))
+	for spidy in spidys:
+		add_child(spidy)
 				
 	#for y in 257: so this seems to have made tiles that were surrounded by 2 empty tiles either directly above and below or right and left of a tile, that tile would then erase itself
 		#for x in 257:
