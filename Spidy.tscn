@@ -110,3 +110,9 @@ libraries = {
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 texture = SubResource("GradientTexture2D_1vxtw")
+texture_scale = 2.0
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+blend_mode = 1
+texture = SubResource("GradientTexture2D_1vxtw")
+texture_scale = 0.3
