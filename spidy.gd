@@ -3,10 +3,13 @@ extends RigidBody2D
 var rng = RandomNumberGenerator.new()
 var player_seen = false
 var animationTime=2
+var startPos = Vector2(0,0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass#position = Vector2(30,0) # Replace with function body.
+	var rotation_start = rng.randi_range(0,360)
+	rotation = rotation_start
+	position = startPos # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -8,10 +8,11 @@ var rectTests_inter: Array[Rect2i] = []
 @export var rectAttempts = 5000
 var rectMinsandMaxes = [-64,64, 7, 20]
 signal nextLevel()
-var spidyChance = 4
+var spidyChance = 2
 var spidys = []
 var spidys_pos = []
 
+#ToDo
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var rectpos_1 = Vector2i(-2,-2)
@@ -43,7 +44,7 @@ func _ready() -> void:
 				var spidy = ResourceLoader.load("res://Spidy.tscn").instantiate()
 				var xPos = rng.randi_range(recti.position.x,recti.position.x + recti.size.x)
 				var yPos = rng.randi_range(recti.position.y, recti.size.y+recti.position.y)
-				spidys_pos.append(Vector2(xPos,yPos))
+				spidys_pos.append(Vector2(xPos*16,yPos*16))
 				spidys.append(spidy)
 		
 	var randomer = RandomNumberGenerator.new()
@@ -82,10 +83,9 @@ func _ready() -> void:
 				pass
 				$Layer1.set_cell(Vector2i(x-128,y-128), 0, Vector2i(0,0))
 	for spidy in spidys:
-		add_child(spidy)
 		var i = spidys.find(spidy)
-		spidy.position = spidys_pos[i]
-				
+		spidy.startPos = spidys_pos[i]
+		add_child(spidy)
 	#for y in 257: so this seems to have made tiles that were surrounded by 2 empty tiles either directly above and below or right and left of a tile, that tile would then erase itself
 		#for x in 257:
 			#if $TileMap/Layer1.get_cell_source_id(Vector2i(x-128,y-128)) == 0:

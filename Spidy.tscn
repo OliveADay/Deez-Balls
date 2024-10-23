@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b2j5r1r7r1qmu"]
+[gd_scene load_steps=11 format=3 uid="uid://b2j5r1r7r1qmu"]
 
 [ext_resource type="Script" path="res://spidy.gd" id="1_2mn78"]
 [ext_resource type="Texture2D" uid="uid://de5w458kjf7k0" path="res://spidy-Sheet.png" id="1_fpt6g"]
@@ -80,6 +80,16 @@ _data = {
 "idle_3": SubResource("Animation_nm1gg")
 }
 
+[sub_resource type="Gradient" id="Gradient_s6aag"]
+offsets = PackedFloat32Array(0, 0.792208)
+colors = PackedColorArray(0.935757, 0, 0.172232, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1vxtw"]
+gradient = SubResource("Gradient_s6aag")
+fill = 1
+fill_from = Vector2(0.527523, 0.536697)
+fill_to = Vector2(1, 1)
+
 [node name="Spidy" type="RigidBody2D"]
 gravity_scale = 0.0
 script = ExtResource("1_2mn78")
@@ -97,3 +107,6 @@ shape = SubResource("CircleShape2D_n8qfe")
 libraries = {
 "": SubResource("AnimationLibrary_lr1tv")
 }
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture = SubResource("GradientTexture2D_1vxtw")
