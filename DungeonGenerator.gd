@@ -83,6 +83,8 @@ func _ready() -> void:
 				$Layer1.set_cell(Vector2i(x-128,y-128), 0, Vector2i(0,0))
 	for spidy in spidys:
 		add_child(spidy)
+		var i = spidys.find(spidy)
+		spidy.position = spidys_pos[i]
 				
 	#for y in 257: so this seems to have made tiles that were surrounded by 2 empty tiles either directly above and below or right and left of a tile, that tile would then erase itself
 		#for x in 257:

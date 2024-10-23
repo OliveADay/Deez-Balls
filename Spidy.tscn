@@ -81,7 +81,6 @@ _data = {
 }
 
 [node name="Spidy" type="RigidBody2D"]
-position = Vector2(52, 29)
 gravity_scale = 0.0
 script = ExtResource("1_2mn78")
 

@@ -54,6 +54,7 @@ use_parent_material = true
 tile_set = SubResource("TileSet_pajbu")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0, 0, 0, 1)
 
 [connection signal="timeout" from="Player/PlayerBody/Camera2D/CanvasLayer2/Timer" to="Player/PlayerBody/Camera2D/CanvasLayer2/Label" method="_on_timer_timeout"]

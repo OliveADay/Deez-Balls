@@ -6,7 +6,7 @@ var animationTime=2
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	position = Vector2(30,0) # Replace with function body.
+	pass#position = Vector2(30,0) # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
