@@ -10,6 +10,7 @@ var rectMinsandMaxes = [-64,64, 7, 20]
 signal nextLevel()
 var spidyChance = 4
 var spidys = []
+var spidys_pos = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -42,7 +43,7 @@ func _ready() -> void:
 				var spidy = ResourceLoader.load("res://Spidy.tscn").instantiate()
 				var xPos = rng.randi_range(recti.position.x,recti.position.x + recti.size.x)
 				var yPos = rng.randi_range(recti.position.y, recti.size.y+recti.position.y)
-				spidy.position = Vector2(xPos,yPos)
+				spidys_pos.append(Vector2(xPos,yPos))
 				spidys.append(spidy)
 		
 	var randomer = RandomNumberGenerator.new()
