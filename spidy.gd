@@ -3,6 +3,7 @@ extends RigidBody2D
 var rng = RandomNumberGenerator.new()
 var player_seen = false
 var player_seen_prev = false
+var attack_mode = false
 var animationTime=2
 var startPos = Vector2(0,0)
 var startRect = Rect2i()
@@ -24,21 +25,31 @@ func _process(delta: float) -> void:
 	else:
 		player_seen=false
 	
+	if player_seen and not player_seen_prev:
+		timeframe = 2
+	
 	if timeframe > 0:
+		attack_mode =false
 		timeframe-=delta
+		$PointLight2D.visible=true
+		$PointLight2D2.visible=true
+		$PointLight2D3.visible=true
 		$PointLight2D.texture_scale+=delta*spreadSpeed
 		$PointLight2D2.texture_scale+=delta*spreadSpeed
 	elif player_seen:
+		attack_mode = true
 		$PointLight2D.texture_scale=2
-		$PointLight2D2.texture_scale=0.3
+		$PointLight2D2.texture_scale=1
 		$PointLight2D.visible=false
 		$PointLight2D2.visible=false
+		$PointLight2D3.visible=false
 	else:
+		attack_mode = false
 		$PointLight2D.texture_scale=2
 		$PointLight2D2.texture_scale=0.3
 	
-	if player_seen and not player_seen_prev:
-		timeframe = 2
+	if attack_mode:
+		look_at(player.position)
 	if not player_seen:
 		var i = rng.randi_range(0,2)
 		var idles = ['idle','idle_2','idle_3']

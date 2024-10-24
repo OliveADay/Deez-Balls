@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b2j5r1r7r1qmu"]
+[gd_scene load_steps=14 format=3 uid="uid://b2j5r1r7r1qmu"]
 
 [ext_resource type="Script" path="res://spidy.gd" id="1_2mn78"]
 [ext_resource type="Texture2D" uid="uid://de5w458kjf7k0" path="res://spidy-Sheet.png" id="1_fpt6g"]
@@ -72,17 +72,43 @@ tracks/0/keys = {
 "values": [0, 3, 4, 5, 0]
 }
 
+[sub_resource type="Animation" id="Animation_oeai5"]
+resource_name = "walk"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.5, 0.666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 6, 7, 8, 9]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lr1tv"]
 _data = {
 "RESET": SubResource("Animation_rsid0"),
 "idle": SubResource("Animation_km08q"),
 "idle_2": SubResource("Animation_w8oj6"),
-"idle_3": SubResource("Animation_nm1gg")
+"idle_3": SubResource("Animation_nm1gg"),
+"walk": SubResource("Animation_oeai5")
 }
+
+[sub_resource type="Gradient" id="Gradient_m10m1"]
+offsets = PackedFloat32Array(0, 0.75974)
+colors = PackedColorArray(0.766878, 0, 0.0171969, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_57wye"]
+gradient = SubResource("Gradient_m10m1")
+fill = 1
+fill_from = Vector2(0.495413, 0.518349)
 
 [sub_resource type="Gradient" id="Gradient_s6aag"]
 offsets = PackedFloat32Array(0, 0.792208)
-colors = PackedColorArray(0.935757, 0, 0.172232, 1, 0, 0, 0, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_1vxtw"]
 gradient = SubResource("Gradient_s6aag")
@@ -109,10 +135,14 @@ libraries = {
 }
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-texture = SubResource("GradientTexture2D_1vxtw")
+texture = SubResource("GradientTexture2D_57wye")
 texture_scale = 2.0
+
+[node name="PointLight2D3" type="PointLight2D" parent="."]
+energy = 2.0
+texture = SubResource("GradientTexture2D_57wye")
+texture_scale = 0.4
 
 [node name="PointLight2D2" type="PointLight2D" parent="."]
 blend_mode = 1
 texture = SubResource("GradientTexture2D_1vxtw")
-texture_scale = 0.3
