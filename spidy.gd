@@ -47,9 +47,12 @@ func _process(delta: float) -> void:
 		attack_mode = false
 		$PointLight2D.texture_scale=2
 		$PointLight2D2.texture_scale=0.3
-	
+	var direction = Vector2(player.position.x - position.x,player.position.y-position.y)
 	if attack_mode:
+		linear_velocity = direction.normalized()*50
 		look_at(player.position)
+		$AnimationPlayer.play("walk")
+		
 	if not player_seen:
 		var i = rng.randi_range(0,2)
 		var idles = ['idle','idle_2','idle_3']
