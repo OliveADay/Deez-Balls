@@ -264,6 +264,7 @@ stream = ExtResource("9_8komb")
 volume_db = 1.0
 
 [node name="PointLight2D" type="PointLight2D" parent="PlayerBody"]
+range_item_cull_mask = 5
 texture = SubResource("GradientTexture2D_vyg0i")
 script = ExtResource("9_o8uvt")
 
@@ -289,17 +290,19 @@ vframes = 4
 frame = 14
 
 [node name="PointLight2D" type="PointLight2D" parent="ball"]
-range_item_cull_mask = 3
+range_item_cull_mask = 7
 texture = SubResource("GradientTexture2D_usgmi")
 texture_scale = 2.0
 
 [node name="PointLight2D2" type="PointLight2D" parent="ball"]
 blend_mode = 1
+range_item_cull_mask = 5
 texture = SubResource("GradientTexture2D_usgmi")
 
 [node name="PointLight2D3" type="PointLight2D" parent="ball"]
 z_index = 1
 energy = 2.0
+range_item_cull_mask = 5
 texture = SubResource("GradientTexture2D_sp6p3")
 texture_scale = 0.3
 

@@ -7,7 +7,8 @@ var attack_mode = false
 var attack_prev_mode = false
 var animationTime=2
 var startPos = Vector2(0,0)
-var startRect = Rect2i()
+var startRecti = Rect2i()
+var startRect = Rect2()
 var timeframe = 0
 var spreadSpeed = 4
 var inRect = true
@@ -18,12 +19,13 @@ func _ready() -> void:
 	var rotation_start = rng.randi_range(0,360)
 	rotation = rotation_start
 	position = startPos # Replace with function body.
+	startRect = Rect2(startRecti)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	var playerPos = Vector2i(int(player.position.x/16),int(player.position.y/16))
+	var playerPos = Vector2i(int(player.position.x/16)+1,int(player.position.y/16)+1)
 	var posi = Vector2i(int(position.x/16),int(position.y/16))
-	if startRect.has_point(playerPos) and startRect.has_point(posi):
+	if startRect.has_point(player.position) and startRect.has_point(position):
 		player_seen = true
 	else:
 		player_seen=false
@@ -50,12 +52,11 @@ func _process(delta: float) -> void:
 		attack_mode = false
 		$PointLight2D.texture_scale=2
 		$PointLight2D2.texture_scale=0.3
-	var direction = Vector2(player.position.x - position.x,player.position.y-position.y)
 	if attack_mode:
-		if not attack_prev_mode and inRect:
-			add_constant_central_force(direction.normalized()*3)
 		look_at(player.position)
 		$AnimationPlayer.play("walk")
+	#else:
+		#constant_force = Vector2(0,0)
 	
 	
 	if not player_seen:
@@ -68,3 +69,8 @@ func _process(delta: float) -> void:
 			animationTime=2
 	attack_prev_mode = attack_mode
 	player_seen_prev = player_seen
+	
+func _physics_process(delta: float) -> void:
+	var direction = Vector2(player.position.x - position.x,player.position.y-position.y)
+	if attack_mode:
+		move_and_collide(direction.normalized()*1.7)

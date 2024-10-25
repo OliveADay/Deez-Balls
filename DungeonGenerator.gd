@@ -88,7 +88,7 @@ func _ready() -> void:
 		for rect in rectTests:
 			var spidy_posi = Vector2i(spidys_pos[i].x/16, spidys_pos[i].y/16)
 			if rect.has_point(spidy_posi):
-				spidy.startRect = rect
+				spidy.startRecti = rect
 		add_child(spidy)
 	#for y in 257: so this seems to have made tiles that were surrounded by 2 empty tiles either directly above and below or right and left of a tile, that tile would then erase itself
 		#for x in 257:
