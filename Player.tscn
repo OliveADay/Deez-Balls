@@ -342,6 +342,7 @@ texture_filter = 1
 offset_right = 40.0
 offset_bottom = 23.0
 theme_override_fonts/font = ExtResource("6_xwhwj")
+text = "label"
 
 [connection signal="treasureFound" from="PlayerBody" to="PlayerBody/Camera2D/CanvasLayer" method="_on_player_body_treasure_found"]
 [connection signal="timeout" from="PlayerBody/Camera2D/CanvasLayer/Timer" to="PlayerBody/Camera2D/CanvasLayer" method="_on_timer_timeout"]

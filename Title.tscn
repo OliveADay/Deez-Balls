@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c84uk0xm0kkrj"]
+[gd_scene load_steps=10 format=3 uid="uid://c84uk0xm0kkrj"]
 
 [ext_resource type="Script" path="res://GameManager.gd" id="1_46q1a"]
 [ext_resource type="FontFile" uid="uid://rsyif4irqau" path="res://04B_11_.TTF" id="1_8110a"]
@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://dedsobfhglkm8" path="res://level_up.wav" id="5_hbxwv"]
 [ext_resource type="AudioStream" uid="uid://xj1tgt3gyie2" path="res://level_up_fin.wav" id="6_mir25"]
 [ext_resource type="AudioStream" uid="uid://cfciykbqbdepg" path="res://click.wav" id="6_p7k2t"]
+[ext_resource type="Script" path="res://instructions_b.gd" id="9_ry7i1"]
 
 [node name="Title" type="Node2D" groups=["World"]]
 script = ExtResource("1_46q1a")
@@ -81,8 +82,54 @@ volume_db = 1.0
 stream = ExtResource("6_mir25")
 volume_db = 1.0
 
+[node name="CenterContainer" type="CenterContainer" parent="."]
+offset_left = 317.0
+offset_top = 183.0
+offset_right = 357.0
+offset_bottom = 223.0
+use_top_left = true
+
+[node name="Button2" type="Button" parent="CenterContainer"]
+layout_mode = 2
+theme_override_colors/font_hover_pressed_color = Color(0.717903, 0.957017, 0.758841, 1)
+theme_override_colors/font_hover_color = Color(0, 0.654382, 0.31046, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 0)
+theme_override_fonts/font = ExtResource("1_8110a")
+text = "instructions"
+flat = true
+icon_alignment = 1
+script = ExtResource("9_ry7i1")
+
+[node name="AudioStreamPlayer2D3" type="AudioStreamPlayer2D" parent="CenterContainer/Button2"]
+position = Vector2(-289, -138)
+stream = ExtResource("6_p7k2t")
+
+[node name="CenterContainer2" type="CenterContainer" parent="."]
+visible = false
+offset_left = 317.0
+offset_top = 240.0
+offset_right = 357.0
+offset_bottom = 280.0
+use_top_left = true
+
+[node name="Label" type="Label" parent="CenterContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_8110a")
+text = "You are an exterminator, and you must exterminate 
+all the bugs in the area, once all the bugs
+in an area are killed you, may collect your reward"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="pressed" from="Control/CenterContainer/Button" to="Control/Title/Title" method="_on_button_pressed"]
 [connection signal="pressed" from="Control/CenterContainer/Button" to="Control/CenterContainer/Button" method="_on_pressed"]
+[connection signal="pressed" from="Control/CenterContainer/Button" to="CenterContainer/Button2" method="_on_button_pressed"]
 [connection signal="timeout" from="Control/CenterContainer/Button/Timer" to="Control/ColorRect" method="_on_timer_timeout"]
 [connection signal="timeout" from="Control/CenterContainer/Button/Timer" to="Control/Title/Title" method="_on_timer_timeout"]
 [connection signal="timeout" from="Control/CenterContainer/Button/Timer" to="Control/CenterContainer/Button" method="_on_timer_timeout"]
+[connection signal="pressed" from="CenterContainer/Button2" to="CenterContainer/Button2" method="_on_pressed"]

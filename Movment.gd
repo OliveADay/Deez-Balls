@@ -23,10 +23,10 @@ func _process(delta):
 	world = get_tree().get_first_node_in_group('World')
 	balls = get_tree().get_nodes_in_group("ball")
 	win_screen = get_tree().get_first_node_in_group("winS")
-	lvl = get_tree().get_first_node_in_group("lvl")
 	
 
 func _physics_process(delta):
+	lvl = get_tree().get_first_node_in_group("lvl")
 	if get_tree().get_nodes_in_group('enemy').size() > 0:
 		get_parent().get_child(3).text = str(world.lvlCurrent+1)
 		$treasure_detect.monitoring = false
@@ -35,7 +35,7 @@ func _physics_process(delta):
 	else:
 		$treasure_detect.monitoring = true
 		get_parent().get_child(2).visible = true
-		get_parent().get_child(2).position = lvl.centerRect#invalid acces to property or key 'centerRect' on a base object of type 'previously freed'
+		get_parent().get_child(2).position = lvl.centerRect#invalid access to property or key 'centerRect' on a base object of type 'previously freed'
 		get_parent().get_child(3).position = lvl.centerRect
 		get_parent().get_child(3).visible = true
 		
