@@ -8,7 +8,9 @@ var batDown = false
 var balls = [RigidBody2D]
 var maxBallCheckCooldown = 10
 var currentBallCheckCooldown = 0;
+@onready var world = get_tree().get_first_node_in_group('World')
 @onready var win_screen = get_tree().get_first_node_in_group("winS")
+@onready var lvl = get_tree().get_first_node_in_group("lvl")
 signal caught()
 signal treasureFound()
 var step_amount = 0
@@ -18,11 +20,28 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _process(delta):
 	$Bat.look_at(get_global_mouse_position())
+	world = get_tree().get_first_node_in_group('World')
 	balls = get_tree().get_nodes_in_group("ball")
 	win_screen = get_tree().get_first_node_in_group("winS")
+	lvl = get_tree().get_first_node_in_group("lvl")
 	
 
 func _physics_process(delta):
+	if get_tree().get_nodes_in_group('enemy').size() > 0:
+		get_parent().get_child(3).text = str(world.lvlCurrent+1)
+		$treasure_detect.monitoring = false
+		get_parent().get_child(2).visible = false
+		get_parent().get_child(3).visible = false
+	else:
+		$treasure_detect.monitoring = true
+		get_parent().get_child(2).visible = true
+		get_parent().get_child(2).position = lvl.centerRect#invalid acces to property or key 'centerRect' on a base object of type 'previously freed'
+		get_parent().get_child(3).position = lvl.centerRect
+		get_parent().get_child(3).visible = true
+		
+	if $death_detect.has_overlapping_bodies():
+		get_tree().reload_current_scene()
+	
 	if $treasure_detect.has_overlapping_bodies():
 		win_screen.visible = true
 		treasureFound.emit()

@@ -7,31 +7,34 @@ var attack_mode = false
 var attack_prev_mode = false
 var animationTime=2
 var startPos = Vector2(0,0)
-var startRecti = Rect2i()
-var startRect = Rect2()
+var startRect = Rect2i()
 var timeframe = 0
-var spreadSpeed = 4
+var spreadSpeed = 8
 var inRect = true
 @onready var player= get_tree().get_first_node_in_group("player")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	player= get_tree().get_first_node_in_group("player")
 	var rotation_start = rng.randi_range(0,360)
 	rotation = rotation_start
 	position = startPos # Replace with function body.
-	startRect = Rect2(startRecti)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	var playerPos = Vector2i(int(player.position.x/16)+1,int(player.position.y/16)+1)
 	var posi = Vector2i(int(position.x/16),int(position.y/16))
-	if startRect.has_point(player.position) and startRect.has_point(position):
-		player_seen = true
+	if player != null:
+		var playerPos = Vector2i(int(player.position.x/16),int(player.position.y/16))
+		if startRect.has_point(playerPos) and startRect.has_point(posi):
+			player_seen = true
+		else:
+			player_seen=false
 	else:
-		player_seen=false
+		player= get_tree().get_first_node_in_group("player")
 	
 	if player_seen and not player_seen_prev:
-		timeframe = 2
+		timeframe = 1
+		$AudioStreamPlayer2D2.play()
 	
 	if timeframe > 0:
 		attack_mode =false
@@ -52,11 +55,19 @@ func _process(delta: float) -> void:
 		attack_mode = false
 		$PointLight2D.texture_scale=2
 		$PointLight2D2.texture_scale=0.3
+		if abs(position.x - startPos.x) <= 2:
+			$PointLight2D.visible=true
+			$PointLight2D2.visible=true
+			$PointLight2D3.visible=true
 	if attack_mode:
 		look_at(player.position)
 		$AnimationPlayer.play("walk")
-	#else:
-		#constant_force = Vector2(0,0)
+	elif abs(position.x - startPos.x) > 2:
+		$AnimationPlayer.play("walk")
+		look_at(startPos)
+		
+	if attack_mode and not attack_prev_mode:
+		$AudioStreamPlayer2D.play()
 	
 	
 	if not player_seen:
@@ -70,7 +81,15 @@ func _process(delta: float) -> void:
 	attack_prev_mode = attack_mode
 	player_seen_prev = player_seen
 	
+	if $Area2D.has_overlapping_bodies():
+		get_parent().get_child(1).play()
+		queue_free()
+		
+	
 func _physics_process(delta: float) -> void:
-	var direction = Vector2(player.position.x - position.x,player.position.y-position.y)
+	var direction = Vector2(0,0)
 	if attack_mode:
-		move_and_collide(direction.normalized()*1.7)
+		direction = Vector2(player.position.x - position.x,player.position.y-position.y).normalized()*1.7
+	elif abs(position.x - startPos.x) > 2:
+		direction = Vector2(startPos.x - position.x,startPos.y-position.y).normalized()
+	move_and_collide(direction)

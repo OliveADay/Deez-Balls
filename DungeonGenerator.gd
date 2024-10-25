@@ -2,16 +2,16 @@ extends Node2D
 var rectTest = Rect2i(0,0,10,10)
 var rectTest_inter = Rect2i(1,1, 8, 8)
 var rng = RandomNumberGenerator.new()
-var GridAttempts
+var GridAttempts 
 var rectTests: Array[Rect2i] = []
 var rectTests_inter: Array[Rect2i] = []
 @export var rectAttempts = 5000
 var rectMinsandMaxes = [-64,64, 7, 20]
 signal nextLevel()
-var spidyChance = 2
+@export var spidyChance = 2
 var spidys = []
 var spidys_pos = []
-
+var centerRect = Vector2(0,0)
 #ToDo
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -50,6 +50,7 @@ func _ready() -> void:
 	var randomer = RandomNumberGenerator.new()
 	var index = randomer.randi_range(0,rectTests.size() -1)
 	var rectFin = rectTests[index]
+	centerRect = Vector2(rectFin.get_center().x*16,rectFin.get_center().y*16)
 	
 			#var rectinner = Rect2i(recti.position.x+1, recti.position.y+1, recti.size.x-2, recti.size.y-2)
 			#rectTests_inter.append(rectinner)
@@ -84,11 +85,11 @@ func _ready() -> void:
 				$Layer1.set_cell(Vector2i(x-128,y-128), 0, Vector2i(0,0))
 	for spidy in spidys:
 		var i = spidys.find(spidy)
-		spidy.startPos = spidys_pos[i]
+		spidy.get_child(0).startPos = spidys_pos[i]
 		for rect in rectTests:
 			var spidy_posi = Vector2i(spidys_pos[i].x/16, spidys_pos[i].y/16)
 			if rect.has_point(spidy_posi):
-				spidy.startRecti = rect
+				spidy.get_child(0).startRect = Rect2i(rect.position.x -1, rect.position.y -1, rect.size.x  +2, rect.size.y +2)
 		add_child(spidy)
 	#for y in 257: so this seems to have made tiles that were surrounded by 2 empty tiles either directly above and below or right and left of a tile, that tile would then erase itself
 		#for x in 257:
@@ -105,5 +106,4 @@ func _process(delta: float) -> void:
 	pass
 	
 func _n_lvl() -> void:
-	pass
-	#nextLevel.emit()
+	nextLevel.emit()

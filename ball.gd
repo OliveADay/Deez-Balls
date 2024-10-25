@@ -23,4 +23,5 @@ func _on_body_entered(body: Node) -> void:
 	if body.is_in_group('tilemap'):
 		$PointLight2D.visible=true
 		$PointLight2D2.visible=true
+		$AudioStreamPlayer2D.play()
 		timeFrame=1

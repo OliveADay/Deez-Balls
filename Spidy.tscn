@@ -1,7 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://b2j5r1r7r1qmu"]
+[gd_scene load_steps=18 format=3 uid="uid://b2j5r1r7r1qmu"]
 
 [ext_resource type="Script" path="res://spidy.gd" id="1_2mn78"]
 [ext_resource type="Texture2D" uid="uid://de5w458kjf7k0" path="res://spidy-Sheet.png" id="1_fpt6g"]
+[ext_resource type="AudioStream" uid="uid://o4beu4vvgwu2" path="res://attack.wav" id="3_h01ik"]
+[ext_resource type="AudioStream" uid="uid://c2urqwwquyvy1" path="res://scream.wav" id="4_0k4cf"]
+[ext_resource type="AudioStream" uid="uid://b30nbuk4ix2sj" path="res://kill.wav" id="5_32etd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n8qfe"]
 radius = 6.08276
@@ -117,35 +120,59 @@ fill = 1
 fill_from = Vector2(0.527523, 0.536697)
 fill_to = Vector2(1, 1)
 
-[node name="Spidy" type="RigidBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_xhqga"]
+radius = 6.08276
+
+[node name="spidy_m" type="Node2D"]
+
+[node name="Spidy" type="RigidBody2D" parent="." groups=["enemy"]]
+collision_layer = 9
 gravity_scale = 0.0
 script = ExtResource("1_2mn78")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="Spidy"]
 light_mask = 4
 texture_filter = 1
 texture = ExtResource("1_fpt6g")
 hframes = 4
 vframes = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spidy"]
 shape = SubResource("CircleShape2D_n8qfe")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Spidy"]
 libraries = {
 "": SubResource("AnimationLibrary_lr1tv")
 }
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
+[node name="PointLight2D" type="PointLight2D" parent="Spidy"]
 texture = SubResource("GradientTexture2D_57wye")
 texture_scale = 2.0
 
-[node name="PointLight2D3" type="PointLight2D" parent="."]
+[node name="PointLight2D3" type="PointLight2D" parent="Spidy"]
 energy = 2.0
 range_item_cull_mask = 4
 texture = SubResource("GradientTexture2D_57wye")
 texture_scale = 0.4
 
-[node name="PointLight2D2" type="PointLight2D" parent="."]
+[node name="PointLight2D2" type="PointLight2D" parent="Spidy"]
 blend_mode = 1
 texture = SubResource("GradientTexture2D_1vxtw")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Spidy"]
+stream = ExtResource("3_h01ik")
+volume_db = 1.0
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="Spidy"]
+stream = ExtResource("4_0k4cf")
+volume_db = 1.0
+
+[node name="Area2D" type="Area2D" parent="Spidy"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spidy/Area2D"]
+shape = SubResource("CircleShape2D_xhqga")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_32etd")

@@ -28,6 +28,8 @@ World="s"
 winS="winscreen"
 tilemap=""
 player=""
+enemy=""
+lvl=""
 
 [input]
 
