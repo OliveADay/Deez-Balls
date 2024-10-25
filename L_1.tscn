@@ -27,7 +27,16 @@ rectAttempts = 1000
 
 [node name="Player" parent="." instance=ExtResource("2_doaeo")]
 
+[node name="Label" parent="Player/PlayerBody/Camera2D/CanvasLayer/Control" index="1"]
+offset_left = 2.0
+offset_top = 0.0
+offset_right = 641.0
+offset_bottom = 360.0
+text = "Extermination complete!
+travelling to next story now..."
+
 [node name="CanvasLayer2" type="CanvasLayer" parent="Player/PlayerBody/Camera2D" index="1"]
+visible = false
 
 [node name="Label" type="Label" parent="Player/PlayerBody/Camera2D/CanvasLayer2"]
 texture_filter = 1

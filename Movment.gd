@@ -14,9 +14,15 @@ var currentBallCheckCooldown = 0;
 signal caught()
 signal treasureFound()
 var step_amount = 0
+var startEnemyAmount = 0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+
+func _ready() -> void:
+	startEnemyAmount = get_tree().get_nodes_in_group('enemy').size()
+	get_parent().get_child(3).position = lvl.centerRect+Vector2(0,-20)
+	
 
 func _process(delta):
 	$Bat.look_at(get_global_mouse_position())
@@ -28,16 +34,24 @@ func _process(delta):
 func _physics_process(delta):
 	lvl = get_tree().get_first_node_in_group("lvl")
 	if get_tree().get_nodes_in_group('enemy').size() > 0:
-		get_parent().get_child(3).text = str(world.lvlCurrent+1)
 		$treasure_detect.monitoring = false
 		get_parent().get_child(2).visible = false
-		get_parent().get_child(3).visible = false
+		get_parent().get_child(3).get_child(0).text = ''
 	else:
+		var prefix = ''
+		if (world.lvlCurrent+1)%10 == 1:
+			prefix = 'st'
+		elif (world.lvlCurrent+1)%10 == 2:
+			prefix = 'nd'
+		elif (world.lvlCurrent+1)%10 == 3:
+			prefix = 'rd'
+		else:
+			prefix = 'th'
+		get_parent().get_child(3).get_child(0).text =  "Go to "+str(world.lvlCurrent+1)+prefix +" story"
 		$treasure_detect.monitoring = true
 		get_parent().get_child(2).visible = true
 		get_parent().get_child(2).position = lvl.centerRect#invalid access to property or key 'centerRect' on a base object of type 'previously freed'
-		get_parent().get_child(3).position = lvl.centerRect
-		get_parent().get_child(3).visible = true
+		get_parent().get_child(3).position = lvl.centerRect+Vector2(0,-20)
 		
 	if $death_detect.has_overlapping_bodies():
 		get_tree().reload_current_scene()

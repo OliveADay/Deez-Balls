@@ -36,6 +36,7 @@ offset_bottom = 70.0
 use_top_left = true
 
 [node name="Title" type="Label" parent="Control/Title"]
+texture_filter = 1
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_8110a")
 text = "AAA, this is pretty scaryw"
@@ -52,6 +53,7 @@ offset_bottom = 190.0
 use_top_left = true
 
 [node name="Button" type="Button" parent="Control/CenterContainer"]
+texture_filter = 1
 layout_mode = 2
 theme_override_colors/font_hover_pressed_color = Color(0.717903, 0.957017, 0.758841, 1)
 theme_override_colors/font_hover_color = Color(0, 0.654382, 0.31046, 1)
@@ -90,6 +92,7 @@ offset_bottom = 223.0
 use_top_left = true
 
 [node name="Button2" type="Button" parent="CenterContainer"]
+texture_filter = 1
 layout_mode = 2
 theme_override_colors/font_hover_pressed_color = Color(0.717903, 0.957017, 0.758841, 1)
 theme_override_colors/font_hover_color = Color(0, 0.654382, 0.31046, 1)
@@ -112,17 +115,23 @@ stream = ExtResource("6_p7k2t")
 [node name="CenterContainer2" type="CenterContainer" parent="."]
 visible = false
 offset_left = 317.0
-offset_top = 240.0
+offset_top = 273.0
 offset_right = 357.0
-offset_bottom = 280.0
+offset_bottom = 313.0
 use_top_left = true
 
 [node name="Label" type="Label" parent="CenterContainer2"]
+texture_filter = 1
 layout_mode = 2
+theme_override_colors/font_color = Color(0.362829, 0.362829, 0.362829, 1)
+theme_override_colors/font_shadow_color = Color(0.382672, 0.099639, 0.135857, 1)
 theme_override_fonts/font = ExtResource("1_8110a")
 text = "You are an exterminator, and you must exterminate 
-all the bugs in the area, once all the bugs
-in an area are killed you, may collect your reward"
+all the bugs in each story, once all the bugs
+in a story are killed, you may collect your reward,
+lucky for you some floors are not infested,
+however these bugs are very deadly,
+so be careful"
 horizontal_alignment = 1
 vertical_alignment = 1
 

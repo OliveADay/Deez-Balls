@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://c8x3vhm1rs80n"]
+[gd_scene load_steps=36 format=3 uid="uid://c8x3vhm1rs80n"]
 
 [ext_resource type="Texture2D" uid="uid://bgjdghsvxst6g" path="res://player-Sheet.png" id="1_7rtip"]
 [ext_resource type="Script" path="res://Movment.gd" id="1_ksifc"]
@@ -169,6 +169,15 @@ gradient = SubResource("Gradient_bnuod")
 fill = 1
 fill_from = Vector2(0.509174, 0.504587)
 
+[sub_resource type="Gradient" id="Gradient_q4d36"]
+offsets = PackedFloat32Array(0.012987, 0.649351)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ygsk6"]
+gradient = SubResource("Gradient_q4d36")
+fill = 1
+fill_from = Vector2(0.490826, 0.513761)
+
 [node name="Player" type="Node2D"]
 
 [node name="PlayerBody" type="CharacterBody2D" parent="." node_paths=PackedStringArray("currentBall") groups=["player"]]
@@ -336,13 +345,22 @@ volume_db = -10.0
 visible = false
 texture = SubResource("GradientTexture2D_la8pr")
 
-[node name="Label" type="Label" parent="."]
-visible = false
-texture_filter = 1
+[node name="CenterContainer" type="CenterContainer" parent="."]
 offset_right = 40.0
-offset_bottom = 23.0
+offset_bottom = 40.0
+use_top_left = true
+
+[node name="Label" type="Label" parent="CenterContainer"]
+light_mask = 256
+z_index = 2
+texture_filter = 1
+layout_mode = 2
 theme_override_fonts/font = ExtResource("6_xwhwj")
-text = "label"
+
+[node name="PointLight2D" type="PointLight2D" parent="CenterContainer/Label"]
+range_item_cull_mask = 256
+texture = SubResource("GradientTexture2D_ygsk6")
+texture_scale = 10.0
 
 [connection signal="treasureFound" from="PlayerBody" to="PlayerBody/Camera2D/CanvasLayer" method="_on_player_body_treasure_found"]
 [connection signal="timeout" from="PlayerBody/Camera2D/CanvasLayer/Timer" to="PlayerBody/Camera2D/CanvasLayer" method="_on_timer_timeout"]

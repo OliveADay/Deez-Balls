@@ -34,4 +34,8 @@ func _on_button_pressed() -> void:
 		tween.set_ease(Tween.EASE_IN)
 		tween.set_trans(Tween.TRANS_EXPO)
 		tween.tween_property(get_parent(), "position", Vector2(317, -40), 1) # Replace with function body.
+		var tween2 = create_tween()
+		tween2.set_ease(Tween.EASE_IN)
+		tween2.set_trans(Tween.TRANS_EXPO)
+		tween2.tween_property(get_parent().get_parent().get_child(4), "position", Vector2(317, -100), 1)
 		keypressedOnce = true
