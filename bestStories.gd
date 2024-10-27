@@ -9,8 +9,12 @@ func _ready() -> void:
 	if FileAccess.file_exists(scoreFilePath):
 		var file = FileAccess.open(scoreFilePath, FileAccess.READ)
 		bestStory = file.get_var(true)
+		print(FileAccess.get_file_as_string(scoreFilePath))
+		print(FileAccess.get_open_error())
 	if bestStory == null:
 		bestStory = 0
+		print(FileAccess.get_file_as_string(scoreFilePath))
+		print(FileAccess.get_open_error())
 	get_parent().text = 'Highest Story Travelled To: ' + str(bestStory)  # Replace with function body.
 
 

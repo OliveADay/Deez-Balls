@@ -29,8 +29,8 @@ func _nLvl() -> void:
 		else:
 			$AudioStreamPlayer2D.play()
 		lvlCurrent +=1
-		print(lvlCurrent)
 		_newLvl()
+	print(lvlCurrent)
 		
 func _newLvl() -> void:
 	ResourceLoader.load_threaded_request(lvl_path)
