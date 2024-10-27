@@ -29,6 +29,7 @@ func _nLvl() -> void:
 		else:
 			$AudioStreamPlayer2D.play()
 		lvlCurrent +=1
+		print(lvlCurrent)
 		_newLvl()
 		
 func _newLvl() -> void:

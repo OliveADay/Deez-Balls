@@ -27,4 +27,4 @@ func _on_button_pressed() -> void:
 
 
 func _on_timer_timeout() -> void:
-	visible = false # Replace with function body.
+	pass

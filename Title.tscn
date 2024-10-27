@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://c84uk0xm0kkrj"]
+[gd_scene load_steps=11 format=3 uid="uid://c84uk0xm0kkrj"]
 
 [ext_resource type="Script" path="res://GameManager.gd" id="1_46q1a"]
 [ext_resource type="FontFile" uid="uid://rsyif4irqau" path="res://04B_11_.TTF" id="1_8110a"]
 [ext_resource type="Script" path="res://title.gd" id="2_oqgcy"]
 [ext_resource type="Script" path="res://color_rect.gd" id="2_yu1rs"]
 [ext_resource type="Script" path="res://PBut.gd" id="3_sa0lt"]
+[ext_resource type="Script" path="res://bestStories.gd" id="5_1qq5k"]
 [ext_resource type="AudioStream" uid="uid://dedsobfhglkm8" path="res://level_up.wav" id="5_hbxwv"]
 [ext_resource type="AudioStream" uid="uid://xj1tgt3gyie2" path="res://level_up_fin.wav" id="6_mir25"]
 [ext_resource type="AudioStream" uid="uid://cfciykbqbdepg" path="res://click.wav" id="6_p7k2t"]
@@ -43,6 +44,28 @@ text = "AAA, this is pretty scaryw"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("2_oqgcy")
+
+[node name="Title2" type="CenterContainer" parent="Control"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 62.0
+offset_right = 960.0
+offset_bottom = 102.0
+use_top_left = true
+
+[node name="Title" type="Label" parent="Control/Title2"]
+texture_filter = 1
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_8110a")
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_oqgcy")
+
+[node name="Node2D" type="Node2D" parent="Control/Title2/Title"]
+script = ExtResource("5_1qq5k")
 
 [node name="CenterContainer" type="CenterContainer" parent="Control"]
 layout_mode = 0
@@ -138,6 +161,7 @@ vertical_alignment = 1
 [connection signal="pressed" from="Control/CenterContainer/Button" to="Control/Title/Title" method="_on_button_pressed"]
 [connection signal="pressed" from="Control/CenterContainer/Button" to="Control/CenterContainer/Button" method="_on_pressed"]
 [connection signal="pressed" from="Control/CenterContainer/Button" to="CenterContainer/Button2" method="_on_button_pressed"]
+[connection signal="pressed" from="Control/CenterContainer/Button" to="Control/Title2/Title" method="_on_button_pressed"]
 [connection signal="timeout" from="Control/CenterContainer/Button/Timer" to="Control/ColorRect" method="_on_timer_timeout"]
 [connection signal="timeout" from="Control/CenterContainer/Button/Timer" to="Control/Title/Title" method="_on_timer_timeout"]
 [connection signal="timeout" from="Control/CenterContainer/Button/Timer" to="Control/CenterContainer/Button" method="_on_timer_timeout"]

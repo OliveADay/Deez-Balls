@@ -15,6 +15,9 @@ signal caught()
 signal treasureFound()
 var step_amount = 0
 var startEnemyAmount = 0
+var scoreFilePath = "user://score.save"
+var bestStory = 0
+var file
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -54,6 +57,7 @@ func _physics_process(delta):
 		get_parent().get_child(3).position = lvl.centerRect+Vector2(0,-20)
 		
 	if $death_detect.has_overlapping_bodies():
+		file.close()
 		get_tree().reload_current_scene()
 	
 	if $treasure_detect.has_overlapping_bodies():
@@ -126,7 +130,8 @@ func _physics_process(delta):
 				$step_3.play()
 	else:
 		step_amount = 0
-
+	LoadBStory()
+	saveBStory()
 	move_and_slide()
 		
 	
@@ -146,4 +151,15 @@ func HandleBat():
 	currentBall = null
 	batDown = !batDown
 	
+func saveBStory():
+	file = FileAccess.open(scoreFilePath, FileAccess.WRITE)
+	if bestStory < world.lvlCurrent:
+		file.store_var(world.lvlCurrent)
+		
+func LoadBStory():
+	if FileAccess.file_exists(scoreFilePath):
+		file = FileAccess.open(scoreFilePath, FileAccess.READ)
+		bestStory = file.get_var(true)
+	if bestStory == null:
+		bestStory=0
 	
