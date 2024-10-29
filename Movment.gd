@@ -57,7 +57,6 @@ func _physics_process(delta):
 		get_parent().get_child(3).position = lvl.centerRect+Vector2(0,-20)
 		
 	if $death_detect.has_overlapping_bodies():
-		file.close()
 		get_tree().reload_current_scene()
 	
 	if $treasure_detect.has_overlapping_bodies():
@@ -155,11 +154,15 @@ func saveBStory():
 	file = FileAccess.open(scoreFilePath, FileAccess.WRITE)
 	if bestStory < world.lvlCurrent:
 		file.store_var(world.lvlCurrent)
+	file.close()
 		
 func LoadBStory():
 	if FileAccess.file_exists(scoreFilePath):
 		file = FileAccess.open(scoreFilePath, FileAccess.READ)
 		bestStory = file.get_var(true)
+	else: 
+		bestStory = 0
 	if bestStory == null:
 		bestStory=0
+		file.close()
 	
