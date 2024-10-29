@@ -15,9 +15,8 @@ signal caught()
 signal treasureFound()
 var step_amount = 0
 var startEnemyAmount = 0
-var scoreFilePath = "user://score.save"
+var scoreFilePath = "user://score.cfg"
 var bestStory = 0
-var file
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -25,6 +24,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 func _ready() -> void:
 	startEnemyAmount = get_tree().get_nodes_in_group('enemy').size()
 	get_parent().get_child(3).position = lvl.centerRect+Vector2(0,-20)
+	LoadBStory()
 	
 
 func _process(delta):
@@ -129,7 +129,6 @@ func _physics_process(delta):
 				$step_3.play()
 	else:
 		step_amount = 0
-	LoadBStory()
 	saveBStory()
 	move_and_slide()
 		
@@ -151,18 +150,17 @@ func HandleBat():
 	batDown = !batDown
 	
 func saveBStory():
-	file = FileAccess.open(scoreFilePath, FileAccess.WRITE)
+	var config = ConfigFile.new()
 	if bestStory < world.lvlCurrent:
-		file.store_var(world.lvlCurrent)
-	file.close()
+		bestStory = world.lvlCurrent
+		config.set_value('main','bestStory',bestStory)
+		config.save(scoreFilePath)
 		
 func LoadBStory():
-	if FileAccess.file_exists(scoreFilePath):
-		file = FileAccess.open(scoreFilePath, FileAccess.READ)
-		bestStory = file.get_var(true)
-	else: 
+	var config = ConfigFile.new()
+	var error = config.load(scoreFilePath)
+	if error != OK:
 		bestStory = 0
-	if bestStory == null:
-		bestStory=0
-		file.close()
+		return
+	bestStory=config.get_value('main','bestStory')
 	
