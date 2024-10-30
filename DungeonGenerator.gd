@@ -12,6 +12,7 @@ signal nextLevel()
 var spidys = []
 var spidys_pos = []
 var centerRect = Vector2(0,0)
+var jamiePlaced = false
 #ToDo
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -75,6 +76,11 @@ func _ready() -> void:
 							$Layer1.set_cell(Vector2i(x-128,y-128), 0, Vector2i(1,1))
 						elif abs((x-128)-rectFin.get_center().x) < 2 and abs((y-128)-rectFin.get_center().y) < 2:
 							$Layer1.set_cell(Vector2i(x-128,y-128), 0, Vector2i(0,1))
+						if abs((x-128)-rectFin.get_center().x) < 2 and abs((y-128)-rectFin.get_center().y) < 3 and not jamiePlaced and not abs((x-128)-rectFin.get_center().x) < 2 and abs((y-128)-rectFin.get_center().y) < 2:
+							var jamie = ResourceLoader.load("res://Jamie.tscn").instantiate()
+							add_child(jamie)
+							jamie.position = Vector2(rectFin.get_center().x*16,rectFin.get_center().y*16)
+							jamiePlaced=true
 						else:
 							$Layer1.set_cell(Vector2i(x-128,y-128), 0, Vector2i(1,0))						
 					else:
