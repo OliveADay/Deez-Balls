@@ -343,7 +343,9 @@ volume_db = -10.0
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 visible = false
+range_item_cull_mask = 128
 texture = SubResource("GradientTexture2D_la8pr")
+texture_scale = 5.0
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 offset_right = 40.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dmotc6ubpyey"]
+[gd_scene load_steps=10 format=3 uid="uid://dmotc6ubpyey"]
 
 [ext_resource type="Script" path="res://DungeonGenerator.gd" id="1_md3hr"]
 [ext_resource type="PackedScene" uid="uid://c8x3vhm1rs80n" path="res://Player.tscn" id="2_doaeo"]
@@ -6,15 +6,24 @@
 [ext_resource type="Script" path="res://label.gd" id="4_n1njt"]
 [ext_resource type="FontFile" uid="uid://rsyif4irqau" path="res://04B_11_.TTF" id="4_s51o0"]
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_w0okn"]
+polygon = PackedVector2Array(-8, 6.75, -8, 8, 8, 8, 8, -8, -8, -8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_p347l"]
+polygon = PackedVector2Array(-8, 6.375, -8, 8, 8, 8, 8, -8, -8, -8)
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q2gul"]
 texture = ExtResource("3_glwbf")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 4.375, -8, 8, 8, 8, 8, -8, -8, -8)
 1:0/0 = 0
 0:1/0 = 0
+0:1/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_w0okn")
 1:1/0 = 0
+1:1/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_p347l")
 
 [sub_resource type="TileSet" id="TileSet_pajbu"]
+occlusion_layer_0/light_mask = 128
 physics_layer_0/collision_layer = 3
 physics_layer_1/collision_layer = 4
 physics_layer_1/collision_mask = 0
