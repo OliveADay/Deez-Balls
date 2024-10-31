@@ -53,6 +53,7 @@ func _physics_process(delta):
 		get_parent().get_child(3).get_child(0).text =  "Go to "+str(world.lvlCurrent+1)+prefix +" story"
 		$treasure_detect.monitoring = true
 		get_parent().get_child(2).visible = true
+		get_parent().get_child(3).visible = true
 		get_parent().get_child(2).position = lvl.centerRect#invalid access to property or key 'centerRect' on a base object of type 'previously freed'
 		get_parent().get_child(3).position = lvl.centerRect+Vector2(0,-20)
 		

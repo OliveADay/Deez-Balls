@@ -78,7 +78,7 @@ func _ready() -> void:
 							$Layer1.set_cell(Vector2i(x-128,y-128), 0, Vector2i(0,1))
 						else:
 							$Layer1.set_cell(Vector2i(x-128,y-128), 0, Vector2i(1,0))		
-						if abs((x-128)-rectFin.get_center().x) < 2 and abs((y-128)-rectFin.get_center().y) < 3 and not jamiePlaced and not abs((x-128)-rectFin.get_center().x) < 2 and abs((y-128)-rectFin.get_center().y) < 2:
+						if (abs((x-128)-rectFin.get_center().x) < 4 and abs((y-128)-rectFin.get_center().y) < 4) and not jamiePlaced and not (abs((x-128)-rectFin.get_center().x) < 3 and abs((y-128)-rectFin.get_center().y) < 3):
 							var jamie = ResourceLoader.load("res://Jamie.tscn").instantiate()
 							add_child(jamie)
 							jamie.position = Vector2(rectFin.get_center().x*16,rectFin.get_center().y*16)
