@@ -67,6 +67,8 @@ func _ready() -> void:
 		#	rectTests_inter.append(rectTests[rect +1])
 	#print(rectTests_inter.size())
 	
+	var jamieTime  = rng.randi_range(0,10)
+	
 	for y in 257:
 		for x in 257:
 			var inRect = false
@@ -79,11 +81,13 @@ func _ready() -> void:
 							$Layer1.set_cell(Vector2i(x-128,y-128), 0, Vector2i(0,1))
 						else:
 							$Layer1.set_cell(Vector2i(x-128,y-128), 0, Vector2i(1,0))		
-						if (abs((x-128)-rectFin.get_center().x) < 5 and abs((y-128)-rectFin.get_center().y) < 5) and not jamiePlaced and not (abs((x-128)-rectFin.get_center().x) < 4 and abs((y-128)-rectFin.get_center().y) < 4):
-							var jamie = ResourceLoader.load("res://Jamie.tscn").instantiate()
-							add_child(jamie)
-							jamie.position = Vector2((x-128)*16,(y-128)*16)
-							jamiePlaced=true				
+						if (abs((x-128)-rectFin.get_center().x) < 3 and abs((y-128)-rectFin.get_center().y) < 3) and not jamiePlaced and not (abs((x-128)-rectFin.get_center().x) < 2 and abs((y-128)-rectFin.get_center().y) < 2):
+							if jamieTime == 0:
+								var jamie = ResourceLoader.load("res://Jamie.tscn").instantiate()
+								add_child(jamie)
+								jamie.position = Vector2(((x-128)*16)+8,((y-128)*16)+8)
+								jamiePlaced=true
+							jamieTime-=1				
 					else:
 						$Layer1.set_cell(Vector2i(x-128,y-128), 0, Vector2i(1,0))
 					inRect = true
