@@ -8,7 +8,7 @@ var rectTests_inter: Array[Rect2i] = []
 @export var rectAttempts = 5000
 var rectMinsandMaxes = [-64,64, 7, 20]
 signal nextLevel()
-@export var spidyChance = 2
+@export var spidyChance = 20
 var spidys = []
 var spidys_pos = []
 var centerRect = Vector2(0,0)

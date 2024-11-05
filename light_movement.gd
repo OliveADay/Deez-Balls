@@ -2,6 +2,7 @@ extends PointLight2D
 
 @export var scale_min=0.4
 @export var scale_max=1.2
+var scoreFilePath = "user://score.cfg"
 
 var prevIncreasing = false
 var increasing=false

@@ -181,6 +181,7 @@ fill_from = Vector2(0.490826, 0.513761)
 [node name="Player" type="Node2D"]
 
 [node name="PlayerBody" type="CharacterBody2D" parent="." node_paths=PackedStringArray("currentBall") groups=["player"]]
+collision_layer = 33
 script = ExtResource("1_ksifc")
 currentBall = NodePath("../ball")
 

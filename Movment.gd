@@ -17,6 +17,8 @@ var step_amount = 0
 var startEnemyAmount = 0
 var scoreFilePath = "user://score.cfg"
 var bestStory = 0
+var additionalVel = 0
+var savedTorque = 0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -35,6 +37,8 @@ func _process(delta):
 	
 
 func _physics_process(delta):
+	var config = ConfigFile.new()
+	var error = config.load(scoreFilePath)
 	lvl = get_tree().get_first_node_in_group("lvl")
 	if get_tree().get_nodes_in_group('enemy').size() > 0:
 		$treasure_detect.monitoring = false
@@ -59,6 +63,7 @@ func _physics_process(delta):
 		
 	if $death_detect.has_overlapping_bodies():
 		get_tree().reload_current_scene()
+		config.set_value('main','bounceBonus', 0)
 	
 	if $treasure_detect.has_overlapping_bodies():
 		win_screen.visible = true
