@@ -1,0 +1,13 @@
+*add explosion of light once enemy dead to give juice
+
+*add upgrades for Jamie
+    *make ball bounciness an upgrade
+    *make ball speed an upgrade
+    *make ball light brighter
+    *make ball spinny more
+*add downgrades for Jamie
+    *increase enemy spawn chance
+    *increase enemy speed
+    *decrease enemy notice time
+
+make upgrades, downgrades, and money all stored in gameManager, not config file
