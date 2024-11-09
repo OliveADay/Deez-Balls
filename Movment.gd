@@ -18,20 +18,22 @@ var startEnemyAmount = 0
 var scoreFilePath = "user://score.cfg"
 var bestStory = 0
 var additionalVel = 0
-var savedTorque = 0
+var additionalTorque = 0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready() -> void:
+	world = get_tree().get_first_node_in_group('World')
 	startEnemyAmount = get_tree().get_nodes_in_group('enemy').size()
 	get_parent().get_child(3).position = lvl.centerRect+Vector2(0,-20)
 	LoadBStory()
+	additionalVel =  world.ball_add_speed
+	additionalTorque = world.ball_add_torque
 	
 
 func _process(delta):
 	$Bat.look_at(get_global_mouse_position())
-	world = get_tree().get_first_node_in_group('World')
 	balls = get_tree().get_nodes_in_group("ball")
 	win_screen = get_tree().get_first_node_in_group("winS")
 	
@@ -146,7 +148,8 @@ func HandleBat():
 	else:
 		$AnimationPlayer_Bat.play("Swing_up")	
 	if currentBall != null:
-		currentBall.apply_central_impulse((get_global_mouse_position() - position).normalized() *100)
+		currentBall.apply_central_impulse((get_global_mouse_position() - position).normalized() *(100+additionalVel))
+		currentBall.apply_torque(additionalTorque)
 		currentBall.linear_damp = 0.5
 		currentBallCheckCooldown = maxBallCheckCooldown
 		currentBall.get_child(1).visible = true

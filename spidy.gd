@@ -8,17 +8,24 @@ var attack_prev_mode = false
 var animationTime=2
 var startPos = Vector2(0,0)
 var startRect = Rect2i()
+var timeframe_max = 1
 var timeframe = 0
+var attackSpeed = 1.7
 var spreadSpeed = 8
 var inRect = true
 @onready var player= get_tree().get_first_node_in_group("player")
+@onready var world = get_tree().get_first_node_in_group("World")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	player= get_tree().get_first_node_in_group("player")
+	world = get_tree().get_first_node_in_group("World")
 	var rotation_start = rng.randi_range(0,360)
 	rotation = rotation_start
-	position = startPos # Replace with function body.
+	position = startPos # Replace with function body
+	if world.enemy_subtract_notice_time <= timeframe_max:
+		timeframe_max = world.enemy_subtract_notice_time
+	attackSpeed+=world.enemy_add_speed
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -33,7 +40,7 @@ func _process(delta: float) -> void:
 		player= get_tree().get_first_node_in_group("player")
 	
 	if player_seen and not player_seen_prev:
-		timeframe = 1
+		timeframe = timeframe_max
 		$AudioStreamPlayer2D2.play()
 	
 	if timeframe > 0:
@@ -89,7 +96,7 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	var direction = Vector2(0,0)
 	if attack_mode:
-		direction = Vector2(player.position.x - position.x,player.position.y-position.y).normalized()*1.7
+		direction = Vector2(player.position.x - position.x,player.position.y-position.y).normalized()*attackSpeed
 	elif abs(position.x - startPos.x) > 2:
 		direction = Vector2(startPos.x - position.x,startPos.y-position.y).normalized()
 	move_and_collide(direction)

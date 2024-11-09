@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dygtsxjvpvc7c"]
+[gd_scene load_steps=10 format=3 uid="uid://dygtsxjvpvc7c"]
 
 [ext_resource type="Texture2D" uid="uid://dledgw7fsxx36" path="res://jamie_smallest-Sheet.png" id="1_ha0yp"]
 [ext_resource type="Script" path="res://jamie.gd" id="1_p2x2w"]
 [ext_resource type="FontFile" uid="uid://rsyif4irqau" path="res://04B_11_.TTF" id="2_ejjmk"]
+[ext_resource type="Script" path="res://store_upgrade.gd" id="4_dvdo6"]
 
 [sub_resource type="Gradient" id="Gradient_8dima"]
 colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 0)
@@ -62,16 +63,29 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="Node2D" type="Node2D" parent="Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+visible = false
+offset_left = -59.0
+offset_top = -45.0
+offset_right = 61.0
+offset_bottom = -5.0
+alignment = 2
 
-[node name="MenuBar" type="MenuBar" parent="Control/Node2D"]
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="MenuButton" type="MenuButton" parent="Control/Node2D/MenuBar"]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+[node name="upgrade" type="Button" parent="Control/VBoxContainer"]
+light_mask = 4
+texture_filter = 1
+layout_mode = 2
+theme_override_colors/font_hover_pressed_color = Color(1.75677e-06, 0.577995, 0.208463, 1)
+theme_override_colors/font_hover_color = Color(0.329998, 0.485199, 0.176854, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_ejjmk")
+theme_override_font_sizes/font_size = 8
+text = "upgrade"
+flat = true
+text_overrun_behavior = 1
+script = ExtResource("4_dvdo6")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 light_mask = 4
@@ -92,3 +106,4 @@ collision_mask = 32
 shape = SubResource("RectangleShape2D_rgtcm")
 
 [connection signal="pressed" from="Control/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/upgrade" to="Control/VBoxContainer/upgrade" method="_on_pressed"]

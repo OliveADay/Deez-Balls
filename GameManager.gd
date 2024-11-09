@@ -6,6 +6,14 @@ var lvlCurrent = 0
 var current_rect_attempts = 1000
 var current_spidy_chance = 4
 var rng = RandomNumberGenerator.new()
+var money = 0
+var ball_add_bounce = 0
+var ball_add_speed = 0
+var ball_add_brightness = 0
+var ball_add_torque = 0
+var enemy_add_spawn = 0
+var enemy_subtract_notice_time = 0
+var enemy_add_speed = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

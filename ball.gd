@@ -1,21 +1,12 @@
 extends RigidBody2D
 var timeFrame = 0
 var speed=8
-var scoreFilePath = "user://score.cfg"
-var saveBounceBonus = 0
+var bounceBonus = 0
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	var config = ConfigFile.new()
-	var error = config.load(scoreFilePath)
-	if error != OK:
-		saveBounceBonus = 0
-	elif config.get_value('main','bounceBonus') != OK:
-		saveBounceBonus = 0
-		config.set_value('main','bounceBonus', 0)
-	else:
-		saveBounceBonus = config.get_value('main','bounceBonus') # Replace with function body.
-		
-	physics_material_override.bounce+=saveBounceBonus
+func _ready(): # Replace with function body.
+	var world = get_tree().get_first_node_in_group("World")
+	bounceBonus = world.ball_add_bounce
+	physics_material_override.bounce+=bounceBonus
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

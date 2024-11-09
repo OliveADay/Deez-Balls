@@ -16,4 +16,4 @@ func _process(delta: float) -> void:
 
 func _on_button_pressed() -> void:
 	$Control/Button.visible = false
-	$Control/Node2D.visible = true
+	$Control/VBoxContainer.visible = true
