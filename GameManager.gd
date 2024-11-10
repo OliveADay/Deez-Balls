@@ -32,6 +32,8 @@ func _nLvl() -> void:
 		if(lvlCurrent > 0):
 			lvls[lvlCurrent - 1].queue_free()
 		add_child(lvls[lvlCurrent])
+		if lvls[lvlCurrent].spidyChance-enemy_add_spawn >= 0:
+			lvls[lvlCurrent].spidyChance-=enemy_add_spawn
 		if lvlCurrent+1 == lvls.size():
 			$AudioStreamPlayer2D2.play()
 		else:

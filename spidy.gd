@@ -23,8 +23,7 @@ func _ready() -> void:
 	var rotation_start = rng.randi_range(0,360)
 	rotation = rotation_start
 	position = startPos # Replace with function body
-	if world.enemy_subtract_notice_time <= timeframe_max:
-		timeframe_max = world.enemy_subtract_notice_time
+	timeframe_max -= world.enemy_subtract_notice_time
 	attackSpeed+=world.enemy_add_speed
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
