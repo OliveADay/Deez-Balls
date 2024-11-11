@@ -13,6 +13,9 @@ var timeframe = 0
 var attackSpeed = 1.7
 var spreadSpeed = 8
 var inRect = true
+var intervalM = 1.5
+var interval = 0.3
+var timeBefreturn=0
 @onready var player= get_tree().get_first_node_in_group("player")
 @onready var world = get_tree().get_first_node_in_group("World")
 
@@ -43,6 +46,7 @@ func _process(delta: float) -> void:
 		$AudioStreamPlayer2D2.play()
 	
 	if timeframe > 0:
+		$PointLight2D3.visible=false
 		attack_mode =false
 		timeframe-=delta
 		$PointLight2D.visible=true
@@ -52,15 +56,14 @@ func _process(delta: float) -> void:
 		$PointLight2D2.texture_scale+=delta*spreadSpeed
 	elif player_seen:
 		attack_mode = true
-		$PointLight2D.texture_scale=2
-		$PointLight2D2.texture_scale=1
-		$PointLight2D.visible=false
-		$PointLight2D2.visible=false
-		$PointLight2D3.visible=false
 	else:
-		attack_mode = false
-		$PointLight2D.texture_scale=2
-		$PointLight2D2.texture_scale=0.3
+		if attack_prev_mode:
+			timeBefreturn=3
+			attack_prev_mode = false
+		if timeBefreturn > 0:
+			timeBefreturn-=delta
+		if timeBefreturn <=0:
+			attack_mode=false
 		if abs(position.x - startPos.x) <= 2:
 			$PointLight2D.visible=true
 			$PointLight2D2.visible=true
@@ -68,12 +71,23 @@ func _process(delta: float) -> void:
 	if attack_mode:
 		look_at(player.position)
 		$AnimationPlayer.play("walk")
+		if interval > 0:
+			interval-=delta
+			$PointLight2D3.visible=false
+		else:
+			interval = intervalM
+			$PointLight2D3.visible=true
 	elif abs(position.x - startPos.x) > 2:
 		$AnimationPlayer.play("walk")
 		look_at(startPos)
+	elif timeframe <=0:
+		if $PointLight2D.texture_scale >2:
+			$PointLight2D.texture_scale-=delta*spreadSpeed
+		if $PointLight2D2.texture_scale>1:
+			$PointLight2D2.texture_scale-=delta*spreadSpeed
 		
-	if attack_mode and not attack_prev_mode:
-		$AudioStreamPlayer2D.play()
+	#if attack_mode and not attack_prev_mode:
+		#$AudioStreamPlayer2D.play()
 	
 	
 	if not player_seen:
@@ -84,7 +98,10 @@ func _process(delta: float) -> void:
 		else:
 			$AnimationPlayer.play(idles[i])
 			animationTime=2
-	attack_prev_mode = attack_mode
+	if timeBefreturn <= 0:
+		attack_prev_mode = attack_mode
+	else:
+		attack_prev_mode = false
 	player_seen_prev = player_seen
 	
 	if $Area2D.has_overlapping_bodies():
@@ -96,6 +113,8 @@ func _physics_process(delta: float) -> void:
 	var direction = Vector2(0,0)
 	if attack_mode:
 		direction = Vector2(player.position.x - position.x,player.position.y-position.y).normalized()*attackSpeed
+		if timeBefreturn > 0:
+			direction= Vector2(0,0)
 	elif abs(position.x - startPos.x) > 2:
 		direction = Vector2(startPos.x - position.x,startPos.y-position.y).normalized()
 	move_and_collide(direction)

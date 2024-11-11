@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b2j5r1r7r1qmu"]
+[gd_scene load_steps=18 format=3 uid="uid://cswiydptq6m4v"]
 
 [ext_resource type="Script" path="res://spidy.gd" id="1_2mn78"]
 [ext_resource type="Texture2D" uid="uid://de5w458kjf7k0" path="res://spidy-Sheet.png" id="1_fpt6g"]
@@ -103,7 +103,7 @@ _data = {
 
 [sub_resource type="Gradient" id="Gradient_m10m1"]
 offsets = PackedFloat32Array(0, 0.75974)
-colors = PackedColorArray(0.766878, 0, 0.0171969, 1, 0, 0, 0, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_57wye"]
 gradient = SubResource("Gradient_m10m1")
@@ -146,17 +146,21 @@ libraries = {
 }
 
 [node name="PointLight2D" type="PointLight2D" parent="Spidy"]
+blend_mode = 1
+range_item_cull_mask = 5
 texture = SubResource("GradientTexture2D_57wye")
 texture_scale = 2.0
 
 [node name="PointLight2D3" type="PointLight2D" parent="Spidy"]
+position = Vector2(5, 0)
 energy = 2.0
 range_item_cull_mask = 4
 texture = SubResource("GradientTexture2D_57wye")
-texture_scale = 0.4
+texture_scale = 0.6
 
 [node name="PointLight2D2" type="PointLight2D" parent="Spidy"]
 blend_mode = 1
+range_item_cull_mask = 5
 texture = SubResource("GradientTexture2D_1vxtw")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Spidy"]

@@ -323,6 +323,7 @@ frame = 14
 
 [node name="PointLight2D" type="PointLight2D" parent="ball"]
 energy = 2.0
+blend_mode = 1
 range_item_cull_mask = 7
 texture = SubResource("GradientTexture2D_usgmi")
 texture_scale = 2.0
@@ -336,6 +337,7 @@ texture = SubResource("GradientTexture2D_usgmi")
 [node name="PointLight2D3" type="PointLight2D" parent="ball"]
 z_index = 1
 energy = 2.0
+blend_mode = 1
 range_item_cull_mask = 5
 texture = SubResource("GradientTexture2D_sp6p3")
 texture_scale = 0.3
