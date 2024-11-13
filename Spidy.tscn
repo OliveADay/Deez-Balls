@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cswiydptq6m4v"]
+[gd_scene load_steps=16 format=3 uid="uid://cswiydptq6m4v"]
 
 [ext_resource type="Script" path="res://spidy.gd" id="1_2mn78"]
 [ext_resource type="Texture2D" uid="uid://de5w458kjf7k0" path="res://spidy-Sheet.png" id="1_fpt6g"]
@@ -110,16 +110,6 @@ gradient = SubResource("Gradient_m10m1")
 fill = 1
 fill_from = Vector2(0.495413, 0.518349)
 
-[sub_resource type="Gradient" id="Gradient_s6aag"]
-offsets = PackedFloat32Array(0, 0.792208)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_1vxtw"]
-gradient = SubResource("Gradient_s6aag")
-fill = 1
-fill_from = Vector2(0.527523, 0.536697)
-fill_to = Vector2(1, 1)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_xhqga"]
 radius = 6.08276
 
@@ -158,11 +148,6 @@ range_item_cull_mask = 4
 texture = SubResource("GradientTexture2D_57wye")
 texture_scale = 0.6
 
-[node name="PointLight2D2" type="PointLight2D" parent="Spidy"]
-blend_mode = 1
-range_item_cull_mask = 5
-texture = SubResource("GradientTexture2D_1vxtw")
-
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Spidy"]
 stream = ExtResource("3_h01ik")
 volume_db = 1.0
@@ -173,7 +158,7 @@ volume_db = 1.0
 
 [node name="Area2D" type="Area2D" parent="Spidy"]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spidy/Area2D"]
 shape = SubResource("CircleShape2D_xhqga")

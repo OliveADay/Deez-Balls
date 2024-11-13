@@ -218,7 +218,7 @@ libraries = {
 
 [node name="Area2D" type="Area2D" parent="PlayerBody"]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 32
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBody/Area2D"]
@@ -300,8 +300,8 @@ collision_mask = 8
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_3q8xo")
 
-[node name="ball" type="RigidBody2D" parent="." groups=["ball"]]
-collision_layer = 2
+[node name="ball" type="RigidBody2D" parent="." groups=["ball", "ball(global)"]]
+collision_layer = 32
 collision_mask = 2
 physics_material_override = SubResource("PhysicsMaterial_wseax")
 gravity_scale = 0.0
@@ -328,16 +328,9 @@ range_item_cull_mask = 7
 texture = SubResource("GradientTexture2D_usgmi")
 texture_scale = 2.0
 
-[node name="PointLight2D2" type="PointLight2D" parent="ball"]
-energy = 2.0
-blend_mode = 1
-range_item_cull_mask = 5
-texture = SubResource("GradientTexture2D_usgmi")
-
 [node name="PointLight2D3" type="PointLight2D" parent="ball"]
 z_index = 1
 energy = 2.0
-blend_mode = 1
 range_item_cull_mask = 5
 texture = SubResource("GradientTexture2D_sp6p3")
 texture_scale = 0.3

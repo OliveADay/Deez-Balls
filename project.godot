@@ -30,6 +30,7 @@ tilemap=""
 player=""
 enemy=""
 lvl=""
+ball(global)=""
 
 [input]
 

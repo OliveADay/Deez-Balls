@@ -16,6 +16,8 @@ var inRect = true
 var intervalM = 1.5
 var interval = 0.3
 var timeBefreturn=0
+var ball_seen
+var ball:Node2D
 @onready var player= get_tree().get_first_node_in_group("player")
 @onready var world = get_tree().get_first_node_in_group("World")
 
@@ -23,6 +25,7 @@ var timeBefreturn=0
 func _ready() -> void:
 	player= get_tree().get_first_node_in_group("player")
 	world = get_tree().get_first_node_in_group("World")
+	ball = get_tree().get_first_node_in_group("ball(global)")
 	var rotation_start = rng.randi_range(0,360)
 	rotation = rotation_start
 	position = startPos # Replace with function body
@@ -38,6 +41,15 @@ func _process(delta: float) -> void:
 			player_seen = true
 		else:
 			player_seen=false
+			if ball != null:
+				var ballPos = Vector2i(int(ball.position.x/16),int(ball.position.y/16))
+				if startRect.has_point(ballPos) and startRect.has_point(posi):
+					ball_seen=true
+				else:
+					ball_seen=false
+			else:
+				ball=get_tree().get_first_node_in_group("ball(global)")
+			
 	else:
 		player= get_tree().get_first_node_in_group("player")
 	
@@ -50,10 +62,8 @@ func _process(delta: float) -> void:
 		attack_mode =false
 		timeframe-=delta
 		$PointLight2D.visible=true
-		$PointLight2D2.visible=true
 		$PointLight2D3.visible=true
 		$PointLight2D.texture_scale+=delta*spreadSpeed
-		$PointLight2D2.texture_scale+=delta*spreadSpeed
 	elif player_seen:
 		attack_mode = true
 	else:
@@ -66,7 +76,6 @@ func _process(delta: float) -> void:
 			attack_mode=false
 		if abs(position.x - startPos.x) <= 2:
 			$PointLight2D.visible=true
-			$PointLight2D2.visible=true
 			$PointLight2D3.visible=true
 	if attack_mode:
 		look_at(player.position)
@@ -83,8 +92,6 @@ func _process(delta: float) -> void:
 	elif timeframe <=0:
 		if $PointLight2D.texture_scale >2:
 			$PointLight2D.texture_scale-=delta*spreadSpeed
-		if $PointLight2D2.texture_scale>1:
-			$PointLight2D2.texture_scale-=delta*spreadSpeed
 		
 	#if attack_mode and not attack_prev_mode:
 		#$AudioStreamPlayer2D.play()
@@ -115,6 +122,9 @@ func _physics_process(delta: float) -> void:
 		direction = Vector2(player.position.x - position.x,player.position.y-position.y).normalized()*attackSpeed
 		if timeBefreturn > 0:
 			direction= Vector2(0,0)
+	if ball_seen:
+		direction = Vector2(-(ball.position.x-position.x),-(ball.position.y-position.y)).normalized()
+		
 	elif abs(position.x - startPos.x) > 2:
 		direction = Vector2(startPos.x - position.x,startPos.y-position.y).normalized()
 	move_and_collide(direction)
